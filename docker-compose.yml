@@ -14,6 +14,8 @@ services:
       - "server"
     ports:
       - 8080:80
+    networks:
+      - backend
 
   client:
     image: node
@@ -26,6 +28,8 @@ services:
     command: "./entrypoint.sh"
     links:
       - server:node_server
+    networks:
+      - backend
 
   server:
     image: node
@@ -36,9 +40,11 @@ services:
     ports:
       - 3001:3000
     links:
-      - mysql: db
+      - mysql:db
     depends_on:
       - mysql
+    networks:
+      - backend
     environment:
       MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
     command: "./entrypoint.sh"
@@ -47,8 +53,13 @@ services:
     image: mysql
     volumes:
       - dbdata:/var/lib/mysql
+    networks:
+      - backend
     environment:
       MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
 
 volumes:
   dbdata:
+
+networks:
+  backend:
