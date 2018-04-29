@@ -3,15 +3,47 @@ var express = require('express');
 var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
+//redis
 var redis = require("redis");
 var redisClient = redis.createClient(6379, 'redis', { no_ready_check: true });
 var session = require('express-session');
 var RedisStore = require('connect-redis')(session);
+//passport
+var passport = require('passport');
+var twitterStrategy = require('passport-twitter').Strategy;
 
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
+var twitter = require('./routes/api/twitter');
+
+//Twitter
+passport.serializeUser(function (user, done) {
+  done(null, user);
+});
+passport.deserializeUser(function (obj, done) {
+  done(null, obj);
+})
+
+passport.use(new twitterStrategy({
+  consumerKey: process.env.TWITTER_CONSUMER_KEY,
+  consumerSecret: process.env.TWITTER_CONSUMER_SECRET,
+  callbackURL: "/api/twitter/callback/" //Twitterログイン後、遷移するURL
+},
+  function (token, tokenSecret, profile, done) {
+    // console.log(token, tokenSecret, profile);
+
+    profile.twitter_token = token;
+    profile.twitter_token_secret = tokenSecret;
+
+    process.nextTick(function () {
+      return done(null, profile);
+    });
+  }
+));
+// twitter end
 
 var app = express();
+
 const redis_option = {
   client: redisClient
 }
@@ -25,6 +57,8 @@ app.use(session({
     maxAge: 60 * 60 * 1000
   }
 }));
+app.use(passport.initialize());
+app.use(passport.session());
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -38,6 +72,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
+app.use('/api/twitter', twitter);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
