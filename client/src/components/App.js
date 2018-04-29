@@ -1,17 +1,20 @@
 import React, { Component } from 'react';
 import logo from './logo.svg';
-import {fetchUserInfo} from '../actions/user'
+import {
+  fetchUserInfo,
+  fetchLogout
+} from '../actions/user'
 import './App.css';
+import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 
 class App extends Component {
   componentDidMount() {
-    const {dispatch} = this.props
-    dispatch(fetchUserInfo());
+    this.props.getUserInfo();
   }
 
   render() {
-    const { userInfo } = this.props
+    const { userInfo, logout, getUserInfo } = this.props
 
     return (
       <div className="App">
@@ -22,19 +25,29 @@ class App extends Component {
         <p className="App-intro">
           To get started, edit <code>src/App.js</code> and save to reload.
         </p>
-        {userInfo.display_name && <p> Welcome {userInfo.display_name} </p> }
-
-
+        {userInfo.display_name && <p> Welcome {userInfo.display_name} </p>}
         <a href='/api/twitter/oauth'>twitter</a>
+        <button onClick={getUserInfo}>getUserInfo</button>
+        <button onClick={logout}>logout</button>
       </div>
     );
   }
 }
 
-function mapStateToProps(state, ownProps) {
+const mapStateToProps = (state, ownProps) => {
   return {
     userInfo: state.user.userInfo
   }
 }
 
-export default connect(mapStateToProps)(App);
+const mapDispatchToProps = (dispatch, state) => {
+  return {
+    logout: () => dispatch(fetchLogout()),
+    getUserInfo: () => dispatch(fetchUserInfo())
+  }
+}
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(App);

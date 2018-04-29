@@ -14,10 +14,12 @@ var twitterStrategy = require('passport-twitter').Strategy;
 
 const isLoggedIn = require('./utils/isLoggedIn');
 
+
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 var twitter = require('./routes/api/twitter');
 const userInfo = require('./routes/api/userInfo');
+const logout = require('./routes/api/logout');
 
 //Twitter
 passport.serializeUser(function (user, done) {
@@ -77,6 +79,7 @@ app.use('/', indexRouter);
 app.use('/users', usersRouter);
 app.use('/api/twitter', twitter);
 app.use('/api/userInfo', isLoggedIn, userInfo);
+app.use('/api/logout', logout);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
