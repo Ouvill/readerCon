@@ -12,9 +12,12 @@ var RedisStore = require('connect-redis')(session);
 var passport = require('passport');
 var twitterStrategy = require('passport-twitter').Strategy;
 
+const isLoggedIn = require('./utils/isLoggedIn');
+
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 var twitter = require('./routes/api/twitter');
+const userInfo = require('./routes/api/userInfo');
 
 //Twitter
 passport.serializeUser(function (user, done) {
@@ -73,6 +76,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
 app.use('/api/twitter', twitter);
+app.use('/api/userInfo', isLoggedIn, userInfo);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
