@@ -47,6 +47,8 @@ services:
       - backend
     environment:
       DB_PASSWORD: ${DB_PASSWORD}
+      TWITTER_CONSUMER_KEY: ${TWITTER_CONSUMER_KEY}
+      TWITTER_CONSUMER_SECRET: ${TWITTER_CONSUMER_SECRET}
     command: "./entrypoint.sh"
 
   db:
