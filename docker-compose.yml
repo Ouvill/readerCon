@@ -64,6 +64,8 @@ services:
 
   db_admin:
     image: dpage/pgadmin4
+    volumes:
+      - db_admin:/var/lib/pgadmin
     ports:
       - 8081:80
     links:
@@ -92,6 +94,7 @@ services:
 
 volumes:
   dbdata:
+  db_admin:
 
 networks:
   backend:
