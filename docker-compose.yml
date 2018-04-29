@@ -40,23 +40,35 @@ services:
     ports:
       - 3001:3000
     links:
-      - mysql:db
+      - db:db
     depends_on:
-      - mysql
+      - db
     networks:
       - backend
     environment:
-      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+      DB_PASSWORD: ${DB_PASSWORD}
     command: "./entrypoint.sh"
 
-  mysql:
-    image: mysql
+  db:
+    image: postgres
     volumes:
-      - dbdata:/var/lib/mysql
+      - dbdata:/var/lib/postgresql/data
     networks:
       - backend
     environment:
-      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+      POSTGRES_PASSWORD: ${DB_PASSWORD}
+
+  db_admin:
+    image: dpage/pgadmin4
+    ports:
+      - 8081:80
+    links:
+      - db:db
+    networks:
+      - backend
+    environment:
+      PGADMIN_DEFAULT_EMAIL: ${PGADMIN_DEFAULT_EMAIL}
+      PGADMIN_DEFAULT_PASSWORD: ${PGADMIN_DEFAULT_PASSWORD}
 
 volumes:
   dbdata:
