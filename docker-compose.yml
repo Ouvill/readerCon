@@ -41,6 +41,7 @@ services:
       - 3001:3000
     links:
       - db:db
+      - redis:redis
     depends_on:
       - db
     networks:
@@ -71,6 +72,11 @@ services:
     environment:
       PGADMIN_DEFAULT_EMAIL: ${PGADMIN_DEFAULT_EMAIL}
       PGADMIN_DEFAULT_PASSWORD: ${PGADMIN_DEFAULT_PASSWORD}
+
+  redis:
+    image: redis
+    networks:
+      - backend
 
 volumes:
   dbdata:
