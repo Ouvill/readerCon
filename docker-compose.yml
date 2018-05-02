@@ -47,7 +47,7 @@ services:
     networks:
       - backend
     environment:
-      SECRET: ${SECRET}
+      SECRET_KEY: ${SECRET_KEY}
       DB_PASSWORD: ${DB_PASSWORD}
       TWITTER_CONSUMER_KEY: ${TWITTER_CONSUMER_KEY}
       TWITTER_CONSUMER_SECRET: ${TWITTER_CONSUMER_SECRET}

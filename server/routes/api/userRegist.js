@@ -2,6 +2,8 @@ var express = require('express');
 var router = express.Router();
 var moment = require('moment');
 const connection = require('../../utils/pgConnection');
+const aes = require('../../utils/aes_crypto');
+const hash = require('../../utils/hash');
 
 /* GET home page. */
 router.get('/', function (req, res, next) {
@@ -26,7 +28,10 @@ router.post('/', async function (req, res, next) {
         return
     }
 
-    if (await existsEmail(email)) {
+    const cipherEmail = aes.cipher(email);
+    const hashPassword = hash(password);
+
+    if (await existsEmail(cipherEmail)) {
         res.json({
             result: false,
             message: "input email is exists"
@@ -45,7 +50,7 @@ router.post('/', async function (req, res, next) {
     const query = {
         name: 'regist_user',
         text: 'INSERT INTO users(user_name, display_name, email, password , created_at) VALUES ($1, $2, $3, $4, $5) RETURNING user_id',
-        values: [userName, displayName, email, password, createdAt]
+        values: [userName, displayName, cipherEmail, hashPassword, createdAt]
     }
     try {
         const userId = await connection.query(query);

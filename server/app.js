@@ -55,7 +55,7 @@ const redis_option = {
 }
 // Session
 app.use(session({
-  secret: process.env.SECRET,
+  secret: process.env.SECRET_KEY,
   store: new RedisStore(redis_option),
   resave: false,
   saveUninitialized: false,
