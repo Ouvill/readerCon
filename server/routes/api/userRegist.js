@@ -18,13 +18,26 @@ router.post('/', async function (req, res, next) {
     const password = req.body.password;
     const createdAt = moment().format('YYYY-MM-DD HH:mm:ss');
 
-    console.log("request");
-    console.dir(req.body);
-
-    if (await existsEmail(email) || await existUserName(userName)) {
+    if (userName == '' || displayName == '' || email == '' || password == '') {
         res.json({
             result: false,
-            message: "input user is exists"
+            message: 'not null'
+        })
+        return
+    }
+
+    if (await existsEmail(email)) {
+        res.json({
+            result: false,
+            message: "input email is exists"
+        });
+        return
+    }
+
+    if (await existUserName(userName)) {
+        res.json({
+            result: false,
+            message: "input user name is exists"
         });
         return
     }
@@ -47,13 +60,8 @@ router.post('/', async function (req, res, next) {
 
 module.exports = router;
 
-const exists = async (column, value) => {
+const exists = async (query, value) => {
     try {
-        const query = {
-            name: 'exist_email',
-            text: 'SELECT * FROM users WHERE $1 =  $2 LIMIT 1',
-            values: [ column ,value ]
-        }
         const userData = await connection.query(query);
         const res = userData.rows.length ? true : false;
         return res;
@@ -63,9 +71,19 @@ const exists = async (column, value) => {
 }
 
 const existsEmail = async (email) => {
-    return await exists('email', email);
+    const query = {
+        name: 'exist_user_email',
+        text: "SELECT * FROM users WHERE email=$1 LIMIT 1",
+        values: [email]
+    }
+    return await exists(query, email);
 }
 
 const existUserName = async (userName) => {
-    return await exists('user_name', userName);
+    const query = {
+        name: 'exist_user_name',
+        text: "SELECT * FROM users WHERE user_name=$1 LIMIT 1",
+        values: [userName]
+    }
+    return await exists(query, userName);
 }
