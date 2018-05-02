@@ -3,6 +3,7 @@ import fetch from 'cross-fetch'
 export const REQUEST_USERINFO = 'REQUEST_USERINFO';
 export const RECIEVE_USERINFO = 'RECIEVE_USERINFO';
 export const LOGOUT = 'LOGOUT'
+export const SET_TENTATIVE_USER_DATA = 'SET_TENTATIVE_USER_DATA';
 
 function requestUserInfo() {
     return {
@@ -39,3 +40,11 @@ export function fetchLogout() {
             .then(json => dispatch(logout()))
     }
 }
+
+export const setTentativeUserData = (target , value) => {
+    return {
+        type: SET_TENTATIVE_USER_DATA,
+        target: target,
+        value: value
+    }
+};

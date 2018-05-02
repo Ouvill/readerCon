@@ -1,7 +1,7 @@
 import {
     REQUEST_USERINFO,
     RECIEVE_USERINFO,
-    LOGOUT
+    LOGOUT,
 } from '../actions/user'
 
 const user = (state = { userInfo: {} }, action) => {
