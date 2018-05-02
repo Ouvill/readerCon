@@ -1,4 +1,7 @@
-import { SET_TENTATIVE_USER_DATA } from '../actions/user'
+import {
+    SET_TENTATIVE_USER_DATA,
+    RECIEVE_REGIST_RESULT
+} from '../actions/user'
 
 const tentativeUser = (state = {
     userName: "",
@@ -11,6 +14,14 @@ const tentativeUser = (state = {
             return Object.assign({}, state, {
                 [action.target]: action.value
             });
+
+        case RECIEVE_REGIST_RESULT:
+            return Object.assign({}, state, {
+
+
+
+            })
+
         default:
             return state
     }

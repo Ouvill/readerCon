@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types'
 import { withStyles } from 'material-ui/styles';
 import TextField from 'material-ui/TextField';
+import Button from 'material-ui/Button';
+import { NavLink } from 'react-router-dom'
 
 const styles = theme => ({
     container: {
@@ -23,7 +25,10 @@ const styles = theme => ({
 
 class UserRegistField extends Component {
     render() {
-        const { classes, setTentativeUserData, tentativeUser } = this.props;
+        const { classes,
+            tentativeUser,
+            setTentativeUserData,
+            postTentativeUserData } = this.props;
         return (
             <div className='UserRegist'>
                 <form className={classes.container}>
@@ -65,6 +70,11 @@ class UserRegistField extends Component {
                         value={tentativeUser.password}
                         margin="normal"
                     />
+                    <Button
+                        type='submit'
+                         variant="raised"
+                        onClick={(e) => { e.preventDefault(); postTentativeUserData() }}
+                    >新規登録</Button>
                 </form>
             </div>
         )
@@ -73,6 +83,7 @@ class UserRegistField extends Component {
 
 UserRegistField.propTypes = {
     setTentativeUserData: PropTypes.func.isRequired,
+    postTentativeUserData: PropTypes.func.isRequired,
 }
 
 export default withStyles(styles)(UserRegistField)

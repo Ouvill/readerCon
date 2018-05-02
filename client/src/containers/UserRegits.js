@@ -1,13 +1,18 @@
 import { connect } from 'react-redux'
-import { setTentativeUserData } from '../actions/user';
+import {
+    setTentativeUserData,
+    postTentativeUserData
+} from '../actions/user';
 import UserRegistField from '../components/UserRegistField'
 
 const mapStateToProps = (state, ownProps) => ({
+    user: state.user,
     tentativeUser: state.tentativeUser
 });
 
 const mapDispatchToProps = dispatch => ({
-    setTentativeUserData: (target, value) => dispatch(setTentativeUserData(target, value))
+    setTentativeUserData: (target, value) => dispatch(setTentativeUserData(target, value)),
+    postTentativeUserData: () => dispatch(postTentativeUserData())
 });
 
 export default connect(

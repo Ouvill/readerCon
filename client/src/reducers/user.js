@@ -4,7 +4,7 @@ import {
     LOGOUT,
 } from '../actions/user'
 
-const user = (state = { userInfo: {} }, action) => {
+const user = (state = { userInfo: {}  }, action) => {
     switch (action.type) {
         case REQUEST_USERINFO:
             return Object.assign({}, state, {

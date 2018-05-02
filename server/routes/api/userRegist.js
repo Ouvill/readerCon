@@ -18,6 +18,9 @@ router.post('/', async function (req, res, next) {
     const password = req.body.password;
     const createdAt = moment().format('YYYY-MM-DD HH:mm:ss');
 
+    console.log("request");
+    console.dir(req.body);
+
     if (await existsEmail(email) || await existUserName(userName)) {
         res.json({
             result: false,
@@ -28,8 +31,8 @@ router.post('/', async function (req, res, next) {
 
     const query = {
         name: 'regist_user',
-        text: 'INSERT INTO users(user_name, display_name, email, password , created_at) RETURNING user_id',
-        value: [userName, displayName, email, password, createdAt]
+        text: 'INSERT INTO users(user_name, display_name, email, password , created_at) VALUES ($1, $2, $3, $4, $5) RETURNING user_id',
+        values: [userName, displayName, email, password, createdAt]
     }
     try {
         const userId = await connection.query(query);
