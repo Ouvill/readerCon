@@ -20,7 +20,10 @@ router.post('/', async function (req, res, next) {
 
     const userId = await authenticate(email, password);
     if (userId) {
-        const token = jwt.sign({ userId }, process.env.JWT_KEY)
+        const token = jwt.sign({
+            userId,
+            exp: Math.floor(Date.now()/ 1000) + 60 * 60 * 24 * 7
+        }, process.env.JWT_KEY)
         res.json({
             result: true,
             token: token,

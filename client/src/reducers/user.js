@@ -22,7 +22,8 @@ const user = (state = { userInfo: {}  }, action) => {
             }
         case LOGOUT:
             return Object.assign({}, state, {
-                userInfo: {}
+                userInfo: {},
+                token: ''
             });
 
         case SUCCESS_LOGIN:
