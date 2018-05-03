@@ -1,10 +1,8 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
 import {
   fetchUserInfo,
   fetchLogout
 } from '../actions/user'
-import './App.css';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import Button from 'material-ui/Button';
@@ -20,27 +18,24 @@ class App extends Component {
 
     return (
       <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <h1 className="App-title">Welcome to React</h1>
-        </header>
-        <p className="App-intro">
-          To get started, edit <code>src/App.js</code> and save to reload.
-        </p>
+        <div>
+          <p>
+            ようこそいらっしゃいました。
+            </p>
+          <p>
+            カクヨムで匿名読者コンテストが開催され多くの人が参加しました。誰が書いたかわからず、内容だけの勝負。胸が熱くなりますね。
+          </p>
+        </div>
+
         {userInfo.display_name && <p> Welcome {userInfo.display_name} </p>}
-        <a href='/api/twitter/oauth'>twitter</a>
-        <button onClick={getUserInfo}>getUserInfo</button>
-        <button onClick={logout}>logout</button>
+        {/* <Button>
+          <a href='/api/twitter/oauth'>twitter</a>
+        </Button> */}
         <NavLink to="/registUser">
           <Button
-            variant="raised"
           >新規ユーザー登録</Button>
         </NavLink>
-        <NavLink to="/login">
-          <Button
-            variant="raised"
-          >ログイン</Button>
-        </NavLink>
+        <Button onClick={logout}>logout</Button>
       </div>
     );
   }

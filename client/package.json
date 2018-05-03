@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@material-ui/icons": "^1.0.0-beta.43",
     "babel-polyfill": "^6.26.0",
     "base64url": "^2.0.0",
     "cross-fetch": "^2.1.1",

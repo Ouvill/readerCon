@@ -3,25 +3,41 @@ import { Provider } from 'react-redux'
 import { BrowserRouter as Router, Route } from 'react-router-dom'
 import { ConnectedRouter } from 'react-router-redux'
 import configureStore from '../configureStore'
-import {history} from '../configureStore'
+import { history } from '../configureStore'
 import App from './App'
 import UserRegist from '../containers/UserRegits'
-import Login from '../containers/Login'
-
+import Login from '../containers/Login';
+import Navigations from './Navigation';
+import { withStyles } from 'material-ui';
+import ApplicationBar from './ApplicationBar';
 const store = configureStore();
 
-export default class Root extends Component {
+const styles = {
+    root: {
+
+    },
+};
+
+
+class Root extends Component {
     render() {
+        const { classes } = this.props;
         return (
             <Provider store={store}>
-                <ConnectedRouter history={history}>
-                    <div>
-                        <Route exact path="/" component={App} />
-                        <Route path="/registUser" component={UserRegist} />
-                        <Route path='/login' component={Login} />
-                    </div>
-                </ConnectedRouter>
+                <div className={classes.root}>
+                    <ConnectedRouter history={history}>
+                        <div>
+                            <ApplicationBar />
+                            <Navigations />
+                            <Route exact path="/" component={App} />
+                            <Route path="/registUser" component={UserRegist} />
+                            <Route path='/login' component={Login} />
+                        </div>
+                    </ConnectedRouter >
+                </div>
             </Provider>
         )
     }
 }
+
+export default withStyles(styles)(Root)
