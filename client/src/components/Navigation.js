@@ -8,12 +8,17 @@ import { NavLink, Link } from 'react-router-dom'
 
 const styles = {
     root: {
+        position: 'fixed',
+        bottom: 0,
+        left: '50%',
+        transform: 'translateX(-50%)'
     },
 };
 
 class Navigation extends React.Component {
     state = {
         value: 0,
+
     };
 
     handleChange = (event, value) => {

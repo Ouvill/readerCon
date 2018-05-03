@@ -1,0 +1,54 @@
+import React from 'react';
+import PropTypes from 'prop-types';
+import { withStyles } from 'material-ui/styles';
+import Button from 'material-ui/Button';
+import { NavLink, Link } from 'react-router-dom'
+import Tabs, { Tab } from 'material-ui/Tabs';
+import Typography from 'material-ui/Typography';
+
+const styles = {
+    root: {
+    },
+};
+
+function TabContainer(props) {
+    return (
+        <Typography component="div" style={{ padding: 8 * 3 }}>
+            {props.children}
+        </Typography>
+    );
+}
+
+TabContainer.propTypes = {
+    children: PropTypes.node.isRequired,
+};
+
+
+class MyPage extends React.Component {
+    state = {
+        value: 0,
+    };
+
+    handleChange = (event, value) => {
+        this.setState({ value });
+    };
+
+    render() {
+        const { classes } = this.props;
+        const { value } = this.state;
+        return (
+            <div>
+                <Tabs value={value} onChange={this.handleChange}>
+                    <Tab label="自作作品一覧" />
+                    <Tab label="お気に入り作品一覧" />
+                </Tabs>
+                {value === 0 && <TabContainer>Item One</TabContainer>}
+                {value === 1 && <TabContainer>Item Two</TabContainer>}
+            </div>
+
+        )
+
+    }
+}
+
+export default withStyles(styles)(MyPage)

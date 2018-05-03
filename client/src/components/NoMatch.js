@@ -8,7 +8,7 @@ const styles = {
     },
 };
 
-class Navigation extends React.Component {
+class NoMatch extends React.Component {
     state = {
         value: 0,
     };
@@ -33,4 +33,4 @@ class Navigation extends React.Component {
     }
 }
 
-export default withStyles(styles)(Navigation)
+export default withStyles(styles)(NoMatch)
