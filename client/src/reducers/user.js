@@ -3,6 +3,7 @@ import {
     RECIEVE_USERINFO,
     LOGOUT,
 } from '../actions/user'
+import { SUCCESS_LOGIN } from '../actions/login'
 
 const user = (state = { userInfo: {}  }, action) => {
     switch (action.type) {
@@ -24,6 +25,10 @@ const user = (state = { userInfo: {}  }, action) => {
                 userInfo: {}
             });
 
+        case SUCCESS_LOGIN:
+            return Object.assign({}, state, {
+                token: action.token
+            })
 
         default:
             return state

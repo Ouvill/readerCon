@@ -6,6 +6,7 @@ import configureStore from '../configureStore'
 import {history} from '../configureStore'
 import App from './App'
 import UserRegist from '../containers/UserRegits'
+import Login from '../containers/Login'
 
 const store = configureStore();
 
@@ -17,6 +18,7 @@ export default class Root extends Component {
                     <div>
                         <Route exact path="/" component={App} />
                         <Route path="/registUser" component={UserRegist} />
+                        <Route path='/login' component={Login} />
                     </div>
                 </ConnectedRouter>
             </Provider>

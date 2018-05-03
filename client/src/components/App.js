@@ -36,6 +36,11 @@ class App extends Component {
             variant="raised"
           >新規ユーザー登録</Button>
         </NavLink>
+        <NavLink to="/login">
+          <Button
+            variant="raised"
+          >ログイン</Button>
+        </NavLink>
       </div>
     );
   }

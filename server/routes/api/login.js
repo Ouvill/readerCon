@@ -6,10 +6,10 @@ const db = require('../../utils/pgConnection');
 const jwt = require('jsonwebtoken');
 
 /* GET home page. */
-router.get('/', async function (req, res, next) {
+router.post('/', async function (req, res, next) {
     const email = req.body.email
     const password = req.body.password
-    console.dir(req.body);
+    console.log(req.body.email);
     if (!checkReq(email, password)) {
         res.json({
             result: false,
@@ -49,7 +49,7 @@ const authenticate = async (email, password) => {
         values: [cipherEmail, hashPassword]
     }
     try {
-        const { rows } = await db.query();
+        const { rows } = await db.query(query);
         const userId = rows ? rows[0].user_id : false
         return userId;
     } catch (err) {
@@ -58,7 +58,7 @@ const authenticate = async (email, password) => {
 }
 
 const checkReq = (email, password) => {
-    if (typeof email === 'undefined' || typeof password === 'undefined') {
+    if (typeof email === 'undefined' || typeof password === 'undefined' || email == '' || password == '') {
         return false
     }
     return true
