@@ -7,6 +7,8 @@ import {
 import './App.css';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
+import Button from 'material-ui/Button';
+import { NavLink } from 'react-router-dom'
 
 class App extends Component {
   componentDidMount() {
@@ -29,6 +31,16 @@ class App extends Component {
         <a href='/api/twitter/oauth'>twitter</a>
         <button onClick={getUserInfo}>getUserInfo</button>
         <button onClick={logout}>logout</button>
+        <NavLink to="/registUser">
+          <Button
+            variant="raised"
+          >新規ユーザー登録</Button>
+        </NavLink>
+        <NavLink to="/login">
+          <Button
+            variant="raised"
+          >ログイン</Button>
+        </NavLink>
       </div>
     );
   }

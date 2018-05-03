@@ -19,6 +19,8 @@ var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 var twitter = require('./routes/api/twitter');
 const userInfo = require('./routes/api/userInfo');
+const userRegist = require('./routes/api/userRegist');
+const login = require('./routes/api/login');
 const logout = require('./routes/api/logout');
 
 //Twitter
@@ -54,7 +56,7 @@ const redis_option = {
 }
 // Session
 app.use(session({
-  secret: process.env.SECRET,
+  secret: process.env.SECRET_KEY,
   store: new RedisStore(redis_option),
   resave: false,
   saveUninitialized: false,
@@ -79,6 +81,8 @@ app.use('/', indexRouter);
 app.use('/users', usersRouter);
 app.use('/api/twitter', twitter);
 app.use('/api/userInfo', isLoggedIn, userInfo);
+app.use('/api/userRegist', userRegist);
+app.use('/api/login', login);
 app.use('/api/logout', logout);
 
 // catch 404 and forward to error handler
