@@ -4,6 +4,7 @@ import BottomNavigation, { BottomNavigationAction } from 'material-ui/BottomNavi
 import RestoreIcon from '@material-ui/icons/Restore';
 import FavoriteIcon from '@material-ui/icons/Favorite';
 import LocationOnIcon from '@material-ui/icons/LocationOn';
+import { NavLink, Link } from 'react-router-dom'
 
 const styles = {
     root: {
@@ -30,9 +31,9 @@ class Navigation extends React.Component {
                 showLabels
                 className={classes.root}
             >
-                <BottomNavigationAction label="ホーム"  />
-                <BottomNavigationAction label="コンテスト"/>
-                <BottomNavigationAction label="マイページ" />
+                <BottomNavigationAction label="ホーム" component={NavLink}  to='/' />
+                <BottomNavigationAction label="コンテスト" component={NavLink} to='/contests' />
+                <BottomNavigationAction label="マイページ" component={NavLink} to='/mypage' />
             </BottomNavigation>
 
         )

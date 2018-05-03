@@ -10,6 +10,7 @@ import Login from '../containers/Login';
 import Navigations from './Navigation';
 import { withStyles } from 'material-ui';
 import ApplicationBar from './ApplicationBar';
+import Contests from './Contests';
 const store = configureStore();
 
 const styles = {
@@ -32,6 +33,7 @@ class Root extends Component {
                             <Route exact path="/" component={App} />
                             <Route path="/registUser" component={UserRegist} />
                             <Route path='/login' component={Login} />
+                            <Route path='/contests' component={Contests} />
                         </div>
                     </ConnectedRouter >
                 </div>

@@ -19,6 +19,10 @@ const styles = {
         marginLeft: -12,
         marginRight: 20,
     },
+    navLink: {
+        textDecoration: 'none',
+        color: 'unset'
+    }
 
 };
 
@@ -32,12 +36,13 @@ class ApplicationBar extends React.Component {
                     <IconButton color="inherit" aria-label="Menu">
                         <MenuIcon />
                     </IconButton>
-                        <NavLink to='/' className={classes.flex}>
-                    <Typography variant="title" color="inherit" >
-                        匿名読者コンテスト
+
+                    <Typography variant="title" color="inherit" className={classes.flex}>
+                        <NavLink to='/' className={ classes.navLink }>
+                            匿名読者コンテスト
+                            </NavLink>
                     </Typography>
-                    </NavLink>
-                    <NavLink to="/login">
+                    <NavLink to="/login" className={classes.navLink}>
                         <Button color="inherit">ログイン</Button>
                     </NavLink>
                 </Toolbar>
