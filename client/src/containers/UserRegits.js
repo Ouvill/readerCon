@@ -1,7 +1,8 @@
 import { connect } from 'react-redux'
 import {
     setTentativeUserData,
-    postTentativeUserData
+    postTentativeUserData,
+    registCancel
 } from '../actions/user';
 import UserRegistField from '../components/UserRegistField'
 
@@ -11,6 +12,7 @@ const mapStateToProps = (state, ownProps) => ({
 });
 
 const mapDispatchToProps = dispatch => ({
+    cancel: () => dispatch(registCancel()),
     setTentativeUserData: (target, value) => dispatch(setTentativeUserData(target, value)),
     postTentativeUserData: () => dispatch(postTentativeUserData())
 });

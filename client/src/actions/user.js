@@ -5,7 +5,9 @@ export const RECIEVE_USERINFO = 'RECIEVE_USERINFO';
 export const LOGOUT = 'LOGOUT';
 export const LOGIN = 'LOGIN';
 export const REGIST = 'REGIST';
+export const REGIST_CANCEL = 'REGIST_CANCEL';
 export const SET_TENTATIVE_USER_DATA = 'SET_TENTATIVE_USER_DATA';
+export const DELETE_TENTATIVE_USER_DATA = 'DELETE_TENTATIVE_USER_DATA'
 export const RECIEVE_REGIST_RESULT = 'RECIEVE_REGIST_RESULT'
 
 function requestUserInfo() {
@@ -52,7 +54,16 @@ export const setTentativeUserData = (target, value) => {
     }
 };
 
+const deleteTentativeUserData = () => {
+    return {
+        type: DELETE_TENTATIVE_USER_DATA,
+    }
+}
+
 function recieveRegistUserResult(json) {
+    if (json.result) {
+        console.log("regist success");
+    }
     return {
         type: RECIEVE_REGIST_RESULT,
         json: json
@@ -68,11 +79,9 @@ function regist(json) {
 
 export const postTentativeUserData = () => {
     return (dispatch, getState) => {
-        console.log("postTentativeUserData")
         const data = getState().tentativeUser;
         const method = 'POST';
         const body = JSON.stringify(data);
-        console.dir(body);
         const headers = {
             'Accept': 'application/json',
             'Content-Type': 'application/json'
@@ -80,8 +89,13 @@ export const postTentativeUserData = () => {
         return fetch('/api/userRegist', { method, headers, body })
             .then(response => response.json())
             .then(json => {
-                console.log(json);
-                recieveRegistUserResult(json)
+                dispatch(recieveRegistUserResult(json, dispatch));
             });
+    }
+}
+
+export const registCancel = () => {
+    return (dispatch, getState) => {
+        dispatch()
     }
 }

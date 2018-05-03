@@ -4,6 +4,7 @@ import { withStyles } from 'material-ui/styles';
 import TextField from 'material-ui/TextField';
 import Button from 'material-ui/Button';
 import { NavLink } from 'react-router-dom'
+import History from 'react-router';
 
 const styles = theme => ({
     container: {
@@ -24,6 +25,15 @@ const styles = theme => ({
 });
 
 class UserRegistField extends Component {
+    constructor(props) {
+        super(props);
+
+
+    }
+
+    handleCancel() {
+        this.props.cancel();
+    }
     render() {
         const { classes,
             tentativeUser,
@@ -72,9 +82,20 @@ class UserRegistField extends Component {
                     />
                     <Button
                         type='submit'
-                         variant="raised"
-                        onClick={(e) => { e.preventDefault(); postTentativeUserData() }}
+                        variant="raised"
+                        onClick={(e) => {
+                            e.preventDefault(); postTentativeUserData();
+                            this.props.history.push("/")
+                        }}
                     >新規登録</Button>
+                    <NavLink
+                        to='/'>
+                        <Button
+                            type='reset'
+                            variant='raised'
+
+                        >キャンセル</Button>
+                    </NavLink>
                 </form>
             </div>
         )

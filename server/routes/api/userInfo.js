@@ -5,7 +5,7 @@ const connection = require('../../utils/pgConnection');
 router.get('/', async function (req, res, next) {
     try {
         userId = req.session.userId;
-        const userRows = await connection.query(' SELECT * FROM users WHERE user_id = $1 LIMIT 1', [userId]);
+        const userRows = await connection.query(' SELECT user_id , user_name, display_name FROM users WHERE user_id = $1 LIMIT 1', [userId]);
         const userInfo = userRows.rows[0];
         res.json({
             result: true,

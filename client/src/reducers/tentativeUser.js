@@ -1,6 +1,6 @@
 import {
     SET_TENTATIVE_USER_DATA,
-    RECIEVE_REGIST_RESULT
+    RECIEVE_REGIST_RESULT,
 } from '../actions/user'
 
 const tentativeUser = (state = {
@@ -17,9 +17,6 @@ const tentativeUser = (state = {
 
         case RECIEVE_REGIST_RESULT:
             return Object.assign({}, state, {
-
-
-
             })
 
         default:
