@@ -30,11 +30,23 @@ function logout() {
 }
 
 export function fetchUserInfo() {
-    return dispatch => {
-        dispatch(requestUserInfo())
-        return fetch('/api/userInfo')
+    return (dispatch, getState) => {
+        dispatch(requestUserInfo());
+        const token = getState().user.token
+        const json = { token: token }
+        const body = JSON.stringify(json);
+        const method = 'POST';
+        const headers = {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+        };
+
+        return fetch('/api/userInfo', { method, body, headers })
             .then(response => response.json())
-            .then(json => dispatch(recieveUserInfo(json)));
+            .then(json => {
+                console.log(json);
+                dispatch(recieveUserInfo(json))
+            });
     }
 }
 
