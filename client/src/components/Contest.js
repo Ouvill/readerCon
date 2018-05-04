@@ -62,14 +62,15 @@ class Contest extends React.Component {
                         <Typography variant='subheading'>
                             投票受付期間：
                         </Typography>
+                    <Button color='primary' variant="raised" component={NavLink} to='/'>コンテストに参加する</Button>
+
                     </div>
+
                 }
                 {
                     value === 1 &&
                     <NovelList novels={contest.novels} />
                 }
-
-                <Button variant="raised" component={NavLink} to='/'>トップに戻る</Button>
             </div>
 
         )
