@@ -49,7 +49,7 @@ class Root extends Component {
                                 <Route path={route.createContest} component={CreateContest} />
                                 <Route path={route.novels+':novelId'} component={Novel} />
                             </div>
-                            <Navigations className={classes.navi}/>
+                            <Navigations className={classes.navi} />
                         </div>
                     </ConnectedRouter >
                 </div>

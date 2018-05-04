@@ -2,6 +2,7 @@ import React from 'react';
 import { withStyles } from 'material-ui/styles';
 import BottomNavigation, { BottomNavigationAction } from 'material-ui/BottomNavigation';
 import { NavLink } from 'react-router-dom'
+import { LinearProgress } from 'material-ui/Progress';
 
 const styles = {
     root: {
@@ -24,20 +25,23 @@ class Navigation extends React.Component {
     };
 
     render() {
-        const { classes } = this.props
+        const { classes, loading } = this.props
         const { value } = this.state;
 
         return (
-            <BottomNavigation
-                value={value}
-                onChange={this.handleChange}
-                showLabels
-                className={classes.root}
-            >
-                <BottomNavigationAction label="ホーム" icon={<i className="fas fa-home"></i>} component={NavLink} to='/' />
-                <BottomNavigationAction label="コンテスト" icon={<i className="fas fa-list-ul"></i>} component={NavLink} to='/contests' />
-                <BottomNavigationAction label="マイページ" icon={<i className="fas fa-book"></i>} component={NavLink} to='/mypage' />
-            </BottomNavigation>
+            <div>
+                {loading && <LinearProgress />}
+                <BottomNavigation
+                    value={value}
+                    onChange={this.handleChange}
+                    showLabels
+                    className={classes.root}
+                >
+                    <BottomNavigationAction label="ホーム" icon={<i className="fas fa-home"></i>} component={NavLink} to='/' />
+                    <BottomNavigationAction label="コンテスト" icon={<i className="fas fa-list-ul"></i>} component={NavLink} to='/contests' />
+                    <BottomNavigationAction label="マイページ" icon={<i className="fas fa-book"></i>} component={NavLink} to='/mypage' />
+                </BottomNavigation>
+            </div>
         )
     }
 }
