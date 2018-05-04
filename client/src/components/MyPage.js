@@ -5,6 +5,8 @@ import Button from 'material-ui/Button';
 import { NavLink, Link } from 'react-router-dom'
 import Tabs, { Tab } from 'material-ui/Tabs';
 import Typography from 'material-ui/Typography';
+import NovelList from './NovelList'
+import store from '../demoStore'
 
 const styles = {
     root: {
@@ -22,7 +24,6 @@ function TabContainer(props) {
 TabContainer.propTypes = {
     children: PropTypes.node.isRequired,
 };
-
 
 class MyPage extends React.Component {
     state = {
@@ -42,8 +43,8 @@ class MyPage extends React.Component {
                     <Tab label="自作作品一覧" />
                     <Tab label="お気に入り作品一覧" />
                 </Tabs>
-                {value === 0 && <TabContainer>Item One</TabContainer>}
-                {value === 1 && <TabContainer>Item Two</TabContainer>}
+                {value === 0 && <TabContainer><NovelList novels={store.novels} /></TabContainer>}
+                {value === 1 && <TabContainer><NovelList novels={store.favorites} /></TabContainer>}
             </div>
 
         )
