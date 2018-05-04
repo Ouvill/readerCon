@@ -6,7 +6,7 @@ import List from 'material-ui/List';
 const NovelList = ({ novels }) => (
     <List>
         {novels.map(novel => (
-            <NovelItem key={novel.id} {...novel} />
+            <NovelItem key={novel.novelId} {...novel} />
         ))}
 
 
@@ -16,7 +16,7 @@ const NovelList = ({ novels }) => (
 NovelList.propTypes = {
     novels: PropTypes.arrayOf(
         PropTypes.shape({
-            id: PropTypes.number.isRequired,
+            novelId: PropTypes.number.isRequired,
             title: PropTypes.string.isRequired,
             overview: PropTypes.string.isRequired
         }).isRequired

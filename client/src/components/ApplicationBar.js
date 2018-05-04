@@ -1,12 +1,10 @@
 import React, { Component } from 'react'
 import AppBar from 'material-ui/AppBar';
 import Toolbar from 'material-ui/Toolbar';
-import IconButton from 'material-ui/IconButton';
-import MenuIcon from '@material-ui/icons/Menu';
 import Typography from 'material-ui/Typography';
 import Button from 'material-ui/Button';
 import { withStyles } from 'material-ui';
-import { NavLink, Link } from 'react-router-dom'
+import { NavLink } from 'react-router-dom'
 
 const styles = {
     root: {
@@ -26,7 +24,7 @@ const styles = {
 
 };
 
-class ApplicationBar extends React.Component {
+class ApplicationBar extends Component {
 
     render() {
         const { classes } = this.props;

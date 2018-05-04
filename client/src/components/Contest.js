@@ -1,6 +1,6 @@
 import React from 'react';
 import { withStyles } from 'material-ui/styles';
-import { NavLink, Link } from 'react-router-dom'
+import { NavLink } from 'react-router-dom'
 import Button from 'material-ui/Button';
 import { Typography } from 'material-ui';
 import Tabs, { Tab } from 'material-ui/Tabs';
@@ -8,10 +8,14 @@ import NovelList from './NovelList';
 import store from '../demoStore'
 
 
-const styles = (theme) => {
+const styles = (theme) => ({
     root: {
+    },
+    detail: {
+        padding: theme.spacing.unit * 2,
     }
-};
+
+});
 
 class Contest extends React.Component {
     state = {
@@ -24,13 +28,13 @@ class Contest extends React.Component {
 
 
     render() {
-        const { classes, match } = this.props;
+        const { classes } = this.props;
         const { value } = this.state;
-        const contestId = match.params.contestId;
+        const { selectContest } = store
+        const contest = store.contests[selectContest]
 
         return (
-            <div>
-
+            <div className={classes.root}>
                 <Typography variant='headline'>
                     企画1
                 </Typography>
@@ -42,7 +46,7 @@ class Contest extends React.Component {
                 </Tabs>
 
                 {value === 0 &&
-                    <div >
+                    <div className={classes.detail}>
                         <Typography variant='subheading'>
                             企画詳細
                         </Typography>
@@ -62,7 +66,7 @@ class Contest extends React.Component {
                 }
                 {
                     value === 1 &&
-                    <NovelList novels={store.novels} />
+                    <NovelList novels={contest.novels} />
                 }
 
                 <Button variant="raised" component={NavLink} to='/'>トップに戻る</Button>

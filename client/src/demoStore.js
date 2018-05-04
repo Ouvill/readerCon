@@ -1,77 +1,108 @@
 const store = {
-    novels: [
-        {
-            id: 1,
-            title: "私の素晴らしい小説",
-            overview: '異世界転生勇者はある日突然死んでしまった'
-        },
-        {
-            id: 2,
-            title: "私の素晴らしい小説",
-            overview: '異世界転生勇者はある日突然死んでしまった'
-        },
-        {
-            id: 3,
-            title: "私の素晴らしい小説",
-            overview: '異世界転生勇者はある日突然死んでしまった'
-        },
-        {
-            id: 4,
-            title: "私の素晴らしい小説",
-            overview: '異世界転生勇者はある日突然死んでしまった'
-        },
-        {
-            id: 5,
-            title: "私の素晴らしい小説",
-            overview: '異世界転生勇者はある日突然死んでしまった'
-        },
-    ],
+    user: {
+        userId:1,
+        userName: 'Ouvill',
+        displayName: 'おーびる',
+        novels: [
+            {
+                novelId: 1,
+                title: "私の素晴らしい小説",
+                overview: '異世界転生勇者はある日突然死んでしまった'
+            },
+            {
+                novelId: 2,
+                title: "私の素晴らしい小説",
+                overview: '異世界転生勇者はある日突然死んでしまった'
+            },
+            {
+                novelId: 3,
+                title: "私の素晴らしい小説",
+                overview: '異世界転生勇者はある日突然死んでしまった'
+            },
+            {
+                novelId: 4,
+                title: "私の素晴らしい小説",
+                overview: '異世界転生勇者はある日突然死んでしまった'
+            },
+            {
+                novelId: 5,
+                title: "私の素晴らしい小説",
+                overview: '異世界転生勇者はある日突然死んでしまった'
+            },
+        ],
+    },
     favorites: [
         {
-            id: 1,
+            novelId: 1,
             title: "私のお気に入り",
             overview: '異世界転生勇者はある日突然死んでしまった'
         },
         {
-            id: 2,
+            novelId: 2,
             title: "私のお気に入り",
             overview: '異世界転生勇者はある日突然死んでしまった'
         },
         {
-            id: 3,
+            novelId: 3,
             title: "私のお気に入り",
             overview: '異世界転生勇者はある日突然死んでしまった'
         },
         {
-            id: 4,
+            novelId: 4,
             title: "私のお気に入り",
             overview: '異世界転生勇者はある日突然死んでしまった'
         },
         {
-            id: 5,
+            novelId: 5,
             title: "私のお気に入り",
             overview: '異世界転生勇者はある日突然死んでしまった'
         },
 
     ],
+
+    selectContest: 0,
     contests: [
         {
-            id: 1,
+            contestId: 1,
             title: "素晴らしい企画",
             content: '匿名企画コンテスト！！',
             joinExpired: '2018-05-03 04:33:06+00',
             voteStart: '2018-05-03 04:33:06+00',
             voteExpired: '2018-05-03 04:33:06+00',
+            novels: [
+                {
+                    novelId: 23,
+                    title: "コンテスト参加作品",
+                    overview: '貴方の大事なものを壊したい',
+                },
+                {
+                    novelId: 25,
+                    title: "コンテスト参加作品",
+                    overview: '貴方の大事なものを壊したい',
+                },
+                {
+                    novelId: 26,
+                    title: "コンテスト参加作品",
+                    overview: '貴方の大事なものを壊したい',
+                },
+                {
+                    novelId: 13,
+                    title: "コンテスト参加作品",
+                    overview: '貴方の大事なものを壊したい',
+                },
+
+
+            ]
         },
         {
-            id: 2,
+            contestId: 2,
             title: "素晴らしい企画",
             content: '匿名企画コンテスト！！',
             expired: '2018-05-03 04:33:06+00'
 
         },
         {
-            id: 3,
+            contestId: 3,
             title: "素晴らしい企画",
             content: '匿名企画コンテスト！！',
             expired: '2018-05-03 04:33:06+00'

@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { withStyles } from 'material-ui/styles';
-import { NavLink, Link } from 'react-router-dom'
+import { NavLink } from 'react-router-dom'
 import { Typography } from 'material-ui';
 import Grid from 'material-ui/Grid';
 import Checkbox from 'material-ui/Checkbox';
@@ -31,7 +31,7 @@ class Novel extends Component {
     }
 
     render() {
-        const { classes, favorite , nextNovel } = this.props
+        const { classes, favorite, nextNovel } = this.props
 
         return (
             <Grid container className={classes.root} justify='center'>

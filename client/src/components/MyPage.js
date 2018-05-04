@@ -13,7 +13,7 @@ const styles = {
 
 function TabContainer(props) {
     return (
-        <Typography component="div" style={{ padding: 8 * 3 }}>
+        <Typography component="div" style={{}}>
             {props.children}
         </Typography>
     );
@@ -35,13 +35,15 @@ class MyPage extends React.Component {
     render() {
         const { classes } = this.props;
         const { value } = this.state;
+        const novels = store.user.novels
+
         return (
             <div className={classes.root}>
                 <Tabs value={value} onChange={this.handleChange}>
                     <Tab label="自作作品一覧" />
                     <Tab label="お気に入り作品一覧" />
                 </Tabs>
-                {value === 0 && <TabContainer><NovelList novels={store.novels} /></TabContainer>}
+                {value === 0 && <TabContainer><NovelList novels={novels} /></TabContainer>}
                 {value === 1 && <TabContainer><NovelList novels={store.favorites} /></TabContainer>}
             </div>
 

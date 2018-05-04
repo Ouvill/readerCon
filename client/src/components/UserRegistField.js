@@ -26,8 +26,7 @@ const styles = theme => ({
 class UserRegistField extends Component {
     constructor(props) {
         super(props);
-
-
+        this.handleCancel = this.handleCancel.bind(this);
     }
 
     handleCancel() {
