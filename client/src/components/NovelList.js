@@ -1,6 +1,5 @@
 import React from 'react';
 import PropTypes from 'prop-types'
-import Typography from 'material-ui/Typography';
 import NovelItem from './NovelItem';
 import List from 'material-ui/List';
 

@@ -1,8 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { withStyles } from 'material-ui/styles';
-import Button from 'material-ui/Button';
-import { NavLink, Link } from 'react-router-dom'
 import Tabs, { Tab } from 'material-ui/Tabs';
 import Typography from 'material-ui/Typography';
 import NovelList from './NovelList'
@@ -38,7 +36,7 @@ class MyPage extends React.Component {
         const { classes } = this.props;
         const { value } = this.state;
         return (
-            <div>
+            <div className={classes.root}>
                 <Tabs value={value} onChange={this.handleChange}>
                     <Tab label="自作作品一覧" />
                     <Tab label="お気に入り作品一覧" />

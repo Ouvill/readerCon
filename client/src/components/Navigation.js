@@ -1,11 +1,7 @@
 import React from 'react';
 import { withStyles } from 'material-ui/styles';
 import BottomNavigation, { BottomNavigationAction } from 'material-ui/BottomNavigation';
-import RestoreIcon from '@material-ui/icons/Restore';
-import FavoriteIcon from '@material-ui/icons/Favorite';
-import LocationOnIcon from '@material-ui/icons/LocationOn';
-import { NavLink, Link } from 'react-router-dom'
-import zIndex from 'material-ui/styles/zIndex';
+import { NavLink } from 'react-router-dom'
 
 const styles = {
     root: {
@@ -38,9 +34,9 @@ class Navigation extends React.Component {
                 showLabels
                 className={classes.root}
             >
-                <BottomNavigationAction label="ホーム" icon={<i class="fas fa-home"></i>} component={NavLink} to='/' />
-                <BottomNavigationAction label="コンテスト" icon={<i class="fas fa-list-ul"></i>} component={NavLink} to='/contests' />
-                <BottomNavigationAction label="マイページ" icon={<i class="fas fa-book"></i>} component={NavLink} to='/mypage' />
+                <BottomNavigationAction label="ホーム" icon={<i className="fas fa-home"></i>} component={NavLink} to='/' />
+                <BottomNavigationAction label="コンテスト" icon={<i className="fas fa-list-ul"></i>} component={NavLink} to='/contests' />
+                <BottomNavigationAction label="マイページ" icon={<i className="fas fa-book"></i>} component={NavLink} to='/mypage' />
             </BottomNavigation>
         )
     }

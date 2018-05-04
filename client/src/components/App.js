@@ -3,7 +3,6 @@ import {
   fetchUserInfo,
   fetchLogout
 } from '../actions/user'
-import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import Button from 'material-ui/Button';
 import { NavLink } from 'react-router-dom'
@@ -15,7 +14,7 @@ class App extends Component {
   }
 
   render() {
-    const { userInfo, logout, getUserInfo } = this.props
+    const { userInfo, logout } = this.props
 
     return (
       <div className="App">

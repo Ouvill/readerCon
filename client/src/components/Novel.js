@@ -7,6 +7,7 @@ import Checkbox from 'material-ui/Checkbox';
 import Favorite from '@material-ui/icons/Favorite';
 import FavoriteBorder from '@material-ui/icons/FavoriteBorder';
 import { FormControlLabel } from 'material-ui/Form';
+import Button from 'material-ui/Button';
 
 const styles = (theme) => ({
     root: {
@@ -30,7 +31,7 @@ class Novel extends Component {
     }
 
     render() {
-        const { classes, favorite } = this.props
+        const { classes, favorite , nextNovel } = this.props
 
         return (
             <Grid container className={classes.root} justify='center'>
@@ -56,7 +57,11 @@ class Novel extends Component {
                                     value="favorite"
                                 />} label='応援する' />
                         </Grid>
-
+                    </Grid>
+                    <Grid container justify='center'>
+                        <Grid item xs={12}>
+                            <Button variant='raised' component={NavLink} to='/'>次の話</Button>
+                        </Grid>
                     </Grid>
 
                 </Grid>
