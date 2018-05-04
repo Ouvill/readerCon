@@ -12,6 +12,8 @@ import { withStyles } from 'material-ui';
 import ApplicationBar from './ApplicationBar';
 import Contests from './Contests';
 import MyPage from './MyPage';
+import route from '../data/routeList'
+import CreateContest from './CreateContest';
 
 const store = configureStore();
 
@@ -41,6 +43,7 @@ class Root extends Component {
                                 <Route path='/login' component={Login} />
                                 <Route path='/contests' component={Contests} />
                                 <Route path='/mypage' component={MyPage} />
+                                <Route path={route.createContest} component={CreateContest} />
                             </div>
                             <Navigations className={classes.navi}/>
                         </div>
