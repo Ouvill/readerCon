@@ -38,9 +38,9 @@ class Navigation extends React.Component {
                 showLabels
                 className={classes.root}
             >
-                <BottomNavigationAction label="ホーム" component={NavLink} to='/' />
-                <BottomNavigationAction label="コンテスト" component={NavLink} to='/contests' />
-                <BottomNavigationAction label="マイページ" component={NavLink} to='/mypage' />
+                <BottomNavigationAction label="ホーム" icon={<i class="fas fa-home"></i>} component={NavLink} to='/' />
+                <BottomNavigationAction label="コンテスト" icon={<i class="fas fa-list-ul"></i>} component={NavLink} to='/contests' />
+                <BottomNavigationAction label="マイページ" icon={<i class="fas fa-book"></i>} component={NavLink} to='/mypage' />
             </BottomNavigation>
         )
     }
