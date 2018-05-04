@@ -1,7 +1,7 @@
 const route = {
-    contest: '/contest/',
-    contests: '/contests',
-    createContest: '/create/contest'
+    contests: '/contests/',
+    createContest: '/create/contest/',
+    novels: '/novels/'
 }
 
 export default route

@@ -5,6 +5,7 @@ import Grid from 'material-ui/Grid';
 import Paper from 'material-ui/Paper';
 import Typography from 'material-ui/Typography';
 import Button from 'material-ui/Button';
+import Tabs, { Tab } from 'material-ui/Tabs';
 import Icon from 'material-ui/Icon';
 
 const styles = (theme) => ({
@@ -27,12 +28,27 @@ const styles = (theme) => ({
 });
 
 class ContestList extends Component {
+    state = {
+        value: 0,
+    };
+
+    handleChange = (event, value) => {
+        this.setState({ value });
+    };
     render() {
         const { classes } = this.props;
+        const { value } = this.state;
+
         return (
             <div className={classes.root} >
+                <Tabs value={value} onChange={this.handleChange}>
+                    <Tab label="読者投票受付中" />
+                    <Tab label="小説投稿受付中" />
+                    <Tab label="過去コンテスト" />
+                </Tabs>
+
                 <Grid container spacing={16}>
-                    <Grid item xs={12} sm={6} component={NavLink} to='/contest/1'>
+                    <Grid item xs={12} sm={6} component={NavLink} to='/contests/1'>
                         <Paper className={classes.paper} >
                             <Typography variant="headline" component="h3">
                                 企画1

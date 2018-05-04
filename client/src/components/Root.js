@@ -15,6 +15,7 @@ import MyPage from './MyPage';
 import route from '../data/routeList'
 import CreateContest from './CreateContest';
 import Contest from './Contest';
+import Novel from './Novel'
 
 const store = configureStore();
 
@@ -42,10 +43,11 @@ class Root extends Component {
                                 <Route exact path="/" component={App} />
                                 <Route path="/registUser" component={UserRegist} />
                                 <Route path='/login' component={Login} />
-                                <Route path='/contests' component={ContestList} />
+                                <Route exact path='/contests' component={ContestList} />
+                                <Route path={route.contests + ':contestId'} component={Contest} />
                                 <Route path='/mypage' component={MyPage} />
                                 <Route path={route.createContest} component={CreateContest} />
-                                <Route path={route.contest + ':contestId'} component={Contest} />
+                                <Route path={route.novels+':novelId'} component={Novel} />
                             </div>
                             <Navigations className={classes.navi}/>
                         </div>
