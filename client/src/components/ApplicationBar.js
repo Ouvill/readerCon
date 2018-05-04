@@ -33,10 +33,6 @@ class ApplicationBar extends React.Component {
         return (
             <AppBar position="static">
                 <Toolbar>
-                    <IconButton color="inherit" aria-label="Menu">
-                        <MenuIcon />
-                    </IconButton>
-
                     <Typography variant="title" color="inherit" className={classes.flex}>
                         <NavLink to='/' className={ classes.navLink }>
                             匿名読者コンテスト
