@@ -12,7 +12,6 @@ import { withStyles } from 'material-ui';
 import ApplicationBar from './ApplicationBar';
 import Contests from './Contests';
 import MyPage from './MyPage';
-import demoStore from '../demoStore'
 
 const store = configureStore();
 
@@ -20,6 +19,14 @@ const styles = {
     root: {
 
     },
+    main: {
+        height: '90vh',
+        overflowY: 'scroll',
+    },
+
+    navi: {
+        height: '10vh',
+    }
 };
 
 
@@ -31,13 +38,15 @@ class Root extends Component {
                 <div className={classes.root}>
                     <ConnectedRouter history={history}>
                         <div>
-                            <ApplicationBar />
-                            <Navigations />
-                            <Route exact path="/" component={App} />
-                            <Route path="/registUser" component={UserRegist} />
-                            <Route path='/login' component={Login} />
-                            <Route path='/contests' component={Contests} />
-                            <Route path='/mypage' component={MyPage}/>
+                            <div className={classes.main}>
+                                <ApplicationBar />
+                                <Route exact path="/" component={App} />
+                                <Route path="/registUser" component={UserRegist} />
+                                <Route path='/login' component={Login} />
+                                <Route path='/contests' component={Contests} />
+                                <Route path='/mypage' component={MyPage} />
+                            </div>
+                            <Navigations className={classes.navi}/>
                         </div>
                     </ConnectedRouter >
                 </div>

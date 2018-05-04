@@ -5,13 +5,15 @@ import RestoreIcon from '@material-ui/icons/Restore';
 import FavoriteIcon from '@material-ui/icons/Favorite';
 import LocationOnIcon from '@material-ui/icons/LocationOn';
 import { NavLink, Link } from 'react-router-dom'
+import zIndex from 'material-ui/styles/zIndex';
 
 const styles = {
     root: {
         position: 'fixed',
         bottom: 0,
         left: '50%',
-        transform: 'translateX(-50%)'
+        transform: 'translateX(-50%)',
+        zIndex: 1
     },
 };
 
@@ -36,13 +38,11 @@ class Navigation extends React.Component {
                 showLabels
                 className={classes.root}
             >
-                <BottomNavigationAction label="ホーム" component={NavLink}  to='/' />
+                <BottomNavigationAction label="ホーム" component={NavLink} to='/' />
                 <BottomNavigationAction label="コンテスト" component={NavLink} to='/contests' />
                 <BottomNavigationAction label="マイページ" component={NavLink} to='/mypage' />
             </BottomNavigation>
-
         )
-
     }
 }
 
