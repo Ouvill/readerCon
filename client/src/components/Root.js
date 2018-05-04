@@ -10,10 +10,11 @@ import Login from '../containers/Login';
 import Navigations from './Navigation';
 import { withStyles } from 'material-ui';
 import ApplicationBar from './ApplicationBar';
-import Contests from './Contests';
+import ContestList from './ContestList';
 import MyPage from './MyPage';
 import route from '../data/routeList'
 import CreateContest from './CreateContest';
+import Contest from './Contest';
 
 const store = configureStore();
 
@@ -41,9 +42,10 @@ class Root extends Component {
                                 <Route exact path="/" component={App} />
                                 <Route path="/registUser" component={UserRegist} />
                                 <Route path='/login' component={Login} />
-                                <Route path='/contests' component={Contests} />
+                                <Route path='/contests' component={ContestList} />
                                 <Route path='/mypage' component={MyPage} />
                                 <Route path={route.createContest} component={CreateContest} />
+                                <Route path={route.contest + ':contestId'} component={Contest} />
                             </div>
                             <Navigations className={classes.navi}/>
                         </div>

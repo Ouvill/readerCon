@@ -26,14 +26,14 @@ const styles = (theme) => ({
     },
 });
 
-class Contests extends Component {
+class ContestList extends Component {
     render() {
         const { classes } = this.props;
         return (
             <div className={classes.root} >
                 <Grid container spacing={16}>
-                    <Grid item xs={12} sm={6}>
-                        <Paper className={classes.paper}>
+                    <Grid item xs={12} sm={6} component={NavLink} to='/contest/1'>
+                        <Paper className={classes.paper} >
                             <Typography variant="headline" component="h3">
                                 企画1
                         </Typography>
@@ -61,4 +61,4 @@ class Contests extends Component {
     }
 }
 
-export default withStyles(styles)(Contests);
+export default withStyles(styles)(ContestList);
