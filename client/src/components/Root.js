@@ -23,10 +23,6 @@ const styles = {
         height: '90vh',
         overflowY: 'scroll',
     },
-
-    navi: {
-        height: '10vh',
-    }
 };
 
 
