@@ -15,7 +15,7 @@ import MyPage from './MyPage';
 import route from '../data/routeList'
 import CreateContest from './CreateContest';
 import Contest from './Contest';
-import Novel from './Novel'
+import ChapterViewer from '../containers/ChapterViewer';
 
 const store = configureStore();
 
@@ -26,6 +26,8 @@ const styles = {
     main: {
         height: '90vh',
         overflowY: 'scroll',
+        WebkitOverflowScrolling: 'touch',
+
     },
 };
 
@@ -47,7 +49,7 @@ class Root extends Component {
                                 <Route path={route.contests + ':contestId'} component={Contest} />
                                 <Route path='/mypage' component={MyPage} />
                                 <Route path={route.createContest} component={CreateContest} />
-                                <Route path={route.novels+':novelId'} component={Novel} />
+                                <Route path={route.novels+':novelId'} component={ChapterViewer} />
                             </div>
                             <Navigations className={classes.navi} />
                         </div>
