@@ -14,9 +14,12 @@ import ContestList from './ContestList';
 import MyPage from './MyPage';
 import route from '../data/routeList'
 import CreateContest from './CreateContest';
+import CreateNovel from './CreateNovel';
 import Contest from './Contest';
 import ChapterViewer from '../containers/ChapterViewer';
 import Novel from '../containers/Novel'
+import Grid from 'material-ui/Grid';
+
 
 const store = configureStore();
 
@@ -54,6 +57,7 @@ class Root extends Component {
                                 <Route path={route.contests + ':contestId'} component={Contest} />
                                 <Route path='/mypage' component={MyPage} />
                                 <Route path={route.createContest} component={CreateContest} />
+                                <Route path='/create/novel' component={CreateNovel} />
                                 <Route exact path={route.novels + ':novelId'} component={Novel} />
                                 <Route path={'/novels/:novelId/chapters/:chapterNum'} component={ChapterViewer} />
                             </div>

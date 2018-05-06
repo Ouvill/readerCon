@@ -5,11 +5,20 @@ import Tabs, { Tab } from 'material-ui/Tabs';
 import Typography from 'material-ui/Typography';
 import NovelList from './NovelList'
 import store from '../demoStore'
+import Button from 'material-ui/Button';
+import Icon from 'material-ui/Icon';
+import { NavLink } from 'react-router-dom'
 
-const styles = {
+const styles = (theme) => ({
     root: {
     },
-};
+    button: {
+        margin: theme.spacing.unit,
+        position: 'fixed',
+        bottom: '12%',
+        right: '5%'
+    },
+});
 
 function TabContainer(props) {
     return (
@@ -43,7 +52,12 @@ class MyPage extends React.Component {
                     <Tab label="自作作品一覧" />
                     <Tab label="お気に入り作品一覧" />
                 </Tabs>
-                {value === 0 && <TabContainer><NovelList novels={novels} /></TabContainer>}
+                {value === 0 && <TabContainer>
+                    <NovelList novels={novels} />
+                    <Button variant="fab" color="secondary" aria-label="edit" className={classes.button} component={NavLink} to='/create/novel'>
+                        <Icon>edit_icon</Icon>
+                    </Button>
+                </TabContainer>}
                 {value === 1 && <TabContainer><NovelList novels={store.favorites} /></TabContainer>}
             </div>
 

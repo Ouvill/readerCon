@@ -13,7 +13,6 @@ import ChapterList from './ChapterList'
 const styles = (theme) => ({
     root: {
         flexGrow: 1,
-        padding: theme.spacing.unit * 2,
     },
     title: {
 
@@ -44,7 +43,7 @@ class Novel extends Component {
                     </Typography>
                     {novel.author &&
                         <Typography variant="subheading" component="h3" align='right'>
-                            {novel.author}
+                            作者：{novel.author}
                         </Typography>}
                     <Typography>
                         {this.brText(novel.overview)}
