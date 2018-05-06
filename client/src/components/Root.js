@@ -24,11 +24,15 @@ const styles = {
 
     },
     main: {
-        height: '90vh',
-        overflowY: 'scroll',
+        height: window.innerHeight * 0.9 || window.innerHeight * 0.9,
+        overflow: 'auto',
         WebkitOverflowScrolling: 'touch',
-
     },
+
+    navi: {
+        width: '100vw'
+    }
+
 };
 
 
