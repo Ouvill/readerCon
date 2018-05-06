@@ -33,6 +33,10 @@ const styles = {
         WebkitOverflowScrolling: 'touch',
     },
 
+    header: {
+        // height: window.innerHeight * 0.1 || window.innerHeight * 0.1,
+    },
+
     navi: {
         width: '100vw'
     }
@@ -49,7 +53,7 @@ class Root extends Component {
                     <ConnectedRouter history={history}>
                         <div>
                             <div className={classes.main}>
-                                <ApplicationBar />
+                                <ApplicationBar className={classes.header}/>
                                 <Route exact path="/" component={App} />
                                 <Route path="/registUser" component={UserRegist} />
                                 <Route path='/login' component={Login} />

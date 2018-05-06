@@ -13,6 +13,15 @@ const styles = (theme) => ({
     root: {
         flexGrow: 1,
         padding: theme.spacing.unit * 2,
+        height: window.innerHeight * 0.8 || window.innerHeight * 0.8,
+        // overflowY: 'hidden',
+        // overflowX: 'auto'
+    },
+    viewer: {
+        // MsWritingMode: 'tb-rl',
+        // WebkitWritingMode: 'vertical-rl',
+        // OWritingMode: 'vertical-rl',
+        // WritingMode: 'vertical-rl'
     },
     title: {
 
@@ -34,41 +43,44 @@ class ChapterViewer extends Component {
 
     render() {
         const { classes, chapter, favorite, next, match } = this.props
-        const { novelId, chapterNum  } = match.params
+        const { novelId, chapterNum } = match.params
 
         return (
             <Grid container className={classes.root} justify='center'>
                 <Grid item xs={12} sm={8} lg={6} >
-                    <Typography variant="headline" component="h3">
-                        {novelId},
-                        {chapterNum}
-                        {chapter.title}
-                    </Typography>
-                    {chapter.author &&
-                        <Typography variant="subheading" component="h3" align='right'>
-                            {chapter.author}
-                        </Typography>}
-                    <Typography
-                    >
-                        {this.replaceText(chapter.text)}
-                    </Typography>
+                    <div className={classes.viewer}>
 
-                    <Grid container>
-                        <Grid item xs={6}>
-                            <FormControlLabel control={
-                                <Checkbox
-                                    icon={<FavoriteBorder />}
-                                    checkedIcon={<Favorite />}
-                                    checked={favorite}
-                                    value="favorite"
-                                />} label='応援する' />
+                        <Typography variant="headline" component="h3">
+                            {novelId},
+                        {chapterNum}
+                            {chapter.title}
+                        </Typography>
+                        {chapter.author &&
+                            <Typography variant="subheading" component="h3" align='right'>
+                                {chapter.author}
+                            </Typography>}
+                        <Typography
+                        >
+                            {this.replaceText(chapter.text)}
+                        </Typography>
+
+                        <Grid container>
+                            <Grid item xs={6}>
+                                <FormControlLabel control={
+                                    <Checkbox
+                                        icon={<FavoriteBorder />}
+                                        checkedIcon={<Favorite />}
+                                        // checked={favorite}
+                                        value="favorite"
+                                    />} label='お気に入り' />
+                            </Grid>
                         </Grid>
-                    </Grid>
-                    <Grid container justify='center'>
-                        <Grid item xs={12}>
-                            <Button variant='raised' component={NavLink} to='/'>次の話</Button>
+                        <Grid container justify='center'>
+                            <Grid item xs={12}>
+                                <Button variant='raised' component={NavLink} to='/'>次の話</Button>
+                            </Grid>
                         </Grid>
-                    </Grid>
+                    </div>
 
                 </Grid>
             </Grid>

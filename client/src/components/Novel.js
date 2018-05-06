@@ -22,7 +22,8 @@ const styles = (theme) => ({
     },
     contents: {
 
-    }
+    },
+
 })
 
 class Novel extends Component {
@@ -38,19 +39,18 @@ class Novel extends Component {
         return (
             <Grid container className={classes.root} justify='center'>
                 <Grid item xs={12} sm={8} lg={6} >
-                    <Typography variant="headline" component="h3">
-                        {novel.title}
-                    </Typography>
-                    {novel.author &&
-                        <Typography variant="subheading" component="h3" align='right'>
-                            作者：{novel.author}
-                        </Typography>}
-                    <Typography>
-                        {this.brText(novel.overview)}
-                    </Typography>
+                       <Typography variant="headline" component="h3">
+                            {novel.title}
+                        </Typography>
+                        {novel.author &&
+                            <Typography variant="subheading" component="h3" align='right'>
+                                作者：{novel.author}
+                            </Typography>}
+                        <Typography>
+                            {this.brText(novel.overview)}
+                        </Typography>
 
-                    <ChapterList novelId={novel.novelId} chapters={novel.chapters}/>
-
+                        <ChapterList novelId={novel.novelId} chapters={novel.chapters} />
                     <Grid container>
                         <Grid item xs={6}>
                             <FormControlLabel control={

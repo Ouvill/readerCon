@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types'
-import NovelItem from './NovelItem';
+import NovelItem from './NovelListItem';
 import List from 'material-ui/List';
 
 const NovelList = ({ novels }) => (

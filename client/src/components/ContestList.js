@@ -7,21 +7,27 @@ import Typography from 'material-ui/Typography';
 import Button from 'material-ui/Button';
 import Tabs, { Tab } from 'material-ui/Tabs';
 import Icon from 'material-ui/Icon';
+import Card, { CardActions, CardContent, CardMedia } from 'material-ui/Card';
 
 const styles = (theme) => ({
     root: {
         flexGrow: 1,
-        overflowX: 'hidden',
+        // overflowX: 'hidden'
 
     },
-    paper: {
-        padding: theme.spacing.unit * 2,
-        textAlign: 'left',
-        color: theme.palette.text.secondary,
+
+    container: {
+        margin: 'auto',
+        padding: theme.spacing.unit,
+        width: '95%',
+        overflow: 'hidden'
     },
+
+
     button: {
         margin: theme.spacing.unit,
         position: 'fixed',
+        // zIndex:1,
         bottom: '12%',
         right: '5%'
     },
@@ -47,26 +53,42 @@ class ContestList extends Component {
                     <Tab label="過去コンテスト" />
                 </Tabs>
 
-                <Grid container spacing={16}>
+                <Grid container className={classes.container} spacing={16}>
                     <Grid item xs={12} sm={6} component={NavLink} to='/contests/1'>
-                        <Paper className={classes.paper} >
-                            <Typography variant="headline" component="h3">
+                        <Card>
+                            <CardContent>
+                                <Typography variant="headline" component="h3">
+                                    企画1
+                        </Typography>
+                                <Typography component="p">
+                                    匿名小説コンテストって面白いよねっということでソレ専用のサイトを用意しだしているあたり馬鹿だなぁって思ってしまう。
+                                                システムの完成はまだまだ先です
+                        </Typography>
+                            </CardContent>
+                        </Card>
+                    </Grid>
+                    <Grid item xs={12} sm={6}>
+                        <Card>
+                            <CardContent>
                                 企画1
-                        </Typography>
-                            <Typography component="p">
-                                匿名小説コンテストって面白いよねっということでソレ専用のサイトを用意しだしているあたり馬鹿だなぁって思ってしまう。
-                                システムの完成はまだまだ先です
-                        </Typography>
-                        </Paper>
+                                </CardContent>
+                        </Card>
                     </Grid>
                     <Grid item xs={12} sm={6}>
-                        <Paper className={classes.paper}>企画1</Paper>
+                        <Card>
+                            <CardContent>
+
+                                企画1
+                                                                </CardContent>
+                        </Card>
+
                     </Grid>
                     <Grid item xs={12} sm={6}>
-                        <Paper className={classes.paper}>企画1</Paper>
-                    </Grid>
-                    <Grid item xs={12} sm={6}>
-                        <Paper className={classes.paper}>企画1</Paper>
+                        <Card>
+                            <CardContent>
+                                企画1
+                                                                                                            </CardContent>
+                        </Card>
                     </Grid>
                 </Grid>
                 <Button variant="fab" color="secondary" aria-label="edit" className={classes.button} component={NavLink} to='/create/contest'>

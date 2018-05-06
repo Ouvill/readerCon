@@ -83,7 +83,6 @@ class CreateContest extends React.Component {
                             <FormControlLabel value="1" control={<Radio />} label="コンテスト1" />
                             <FormControlLabel value="2" control={<Radio />} label="コンテスト2" />
                             <FormControlLabel value="3" control={<Radio />} label="コンテスト3" />
-
                         </RadioGroup>
                     </FormControl>
 
