@@ -8,6 +8,7 @@ import Favorite from '@material-ui/icons/Favorite';
 import FavoriteBorder from '@material-ui/icons/FavoriteBorder';
 import { FormControlLabel } from 'material-ui/Form';
 import Button from 'material-ui/Button';
+import ChapterList from './ChapterList'
 
 const styles = (theme) => ({
     root: {
@@ -25,33 +26,31 @@ const styles = (theme) => ({
     }
 })
 
-class ChapterViewer extends Component {
-    replaceText(text) {
+class Novel extends Component {
+    brText(text) {
         let viewText = text.replace(/\r\n|\n|\r/g, "<br>");
         // viewText = text.replace(/[ ]/, '　');
         return viewText;
     }
 
     render() {
-        const { classes, chapter, favorite, next, match } = this.props
-        const { novelId, chapterNum  } = match.params
+        const { classes, novel, favorite, next } = this.props
 
         return (
             <Grid container className={classes.root} justify='center'>
                 <Grid item xs={12} sm={8} lg={6} >
                     <Typography variant="headline" component="h3">
-                        {novelId},
-                        {chapterNum}
-                        {chapter.title}
+                        {novel.title}
                     </Typography>
-                    {chapter.author &&
+                    {novel.author &&
                         <Typography variant="subheading" component="h3" align='right'>
-                            {chapter.author}
+                            {novel.author}
                         </Typography>}
-                    <Typography
-                    >
-                        {this.replaceText(chapter.text)}
+                    <Typography>
+                        {this.brText(novel.overview)}
                     </Typography>
+
+                    <ChapterList novelId={novel.novelId} chapters={novel.chapters}/>
 
                     <Grid container>
                         <Grid item xs={6}>
@@ -77,4 +76,4 @@ class ChapterViewer extends Component {
 }
 
 
-export default withStyles(styles)(ChapterViewer)
+export default withStyles(styles)(Novel)

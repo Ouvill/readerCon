@@ -1,5 +1,5 @@
 import { connect } from 'react-redux'
-import ChapterViewerComponent from '../components/ChapterViewer'
+import NovelComponent from '../components/Novel'
 
 import store from '../demoStore'
 
@@ -7,14 +7,13 @@ import store from '../demoStore'
 const mapStateToProps = (state, ownProps) => {
     const chapter = store.selectChapter
     return {
-        chapter: chapter,
-        favorite: chapter.favorite,
+        novel: store.selectNovel,
     }
 }
 
 const mapDispatchToProps = dispatch => ({
-    next: () => {}
+    next: () => { }
 
 })
 
-export default connect(mapStateToProps, mapDispatchToProps)(ChapterViewerComponent)
+export default connect(mapStateToProps, mapDispatchToProps)(NovelComponent)

@@ -85,6 +85,33 @@ const store = {
         },
 
     ],
+    selectNovel:
+        {
+            novelId: 23,
+            title: "コンテスト参加作品",
+            author: 'ほげほげ',
+            overview: '貴方の大事なものを壊したい',
+            chapters: [{
+                chapterId: 1,
+                chapterNum: 1,
+                title: "第一章",
+                text: "本文"
+            },
+            {
+                chapterId: 2,
+                chapterNum: 2,
+                title: "第二章",
+                text: "本文"
+            },
+            {
+                chapterId: 3,
+                chapterNum: 3,
+                title: "第三章",
+                text: "本文"
+            }],
+        },
+
+
     selectChapter: {
         title: '吾輩は猫である',
         author: '夏目漱石',
