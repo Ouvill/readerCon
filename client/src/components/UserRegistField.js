@@ -4,7 +4,6 @@ import { withStyles } from 'material-ui/styles';
 import TextField from 'material-ui/TextField';
 import Button from 'material-ui/Button';
 import { NavLink } from 'react-router-dom'
-import History from 'react-router';
 
 const styles = theme => ({
     container: {
@@ -27,8 +26,7 @@ const styles = theme => ({
 class UserRegistField extends Component {
     constructor(props) {
         super(props);
-
-
+        this.handleCancel = this.handleCancel.bind(this);
     }
 
     handleCancel() {
