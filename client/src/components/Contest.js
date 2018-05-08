@@ -31,7 +31,8 @@ class Contest extends React.Component {
 
 
     render() {
-        const { classes } = this.props;
+        const { classes, match } = this.props;
+        const { contestId } = match.params;
         const { value } = this.state;
         const { selectContest } = store
         const contest = store.contests[selectContest]
@@ -71,7 +72,7 @@ class Contest extends React.Component {
                                     </Typography>
                                 </CardContent>
                                 <CardActions>
-                                    <Button color='primary' variant="raised" component={NavLink} to='/'>コンテストに参加する</Button>
+                                    <Button color='primary' variant="raised" component={NavLink} to={'/applyContest/'+contestId}>コンテストに参加する</Button>
                                 </CardActions>
                             </Card>
                             </Grid>
