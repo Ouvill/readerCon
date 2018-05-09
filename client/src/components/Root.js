@@ -9,7 +9,7 @@ import UserRegist from '../containers/UserRegits'
 import Login from '../containers/Login';
 import Navigations from './Navigation';
 import { withStyles } from 'material-ui';
-import ApplicationBar from './ApplicationBar';
+import ApplicationBar from '../containers/ApplicationBar';
 import ContestList from './ContestList';
 import MyPage from './MyPage';
 import route from '../data/routeList'

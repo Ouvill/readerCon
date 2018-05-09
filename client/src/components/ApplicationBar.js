@@ -26,17 +26,18 @@ const styles = {
 
 class ApplicationBar extends Component {
 
+
     render() {
-        const { classes } = this.props;
+        const { classes, login, path } = this.props;
         return (
             <AppBar position="static">
                 <Toolbar>
                     <Typography variant="title" color="inherit" className={classes.flex}>
-                        <NavLink to='/' className={ classes.navLink }>
+                        <NavLink to='/' className={classes.navLink}>
                             匿名読者コンテスト
                             </NavLink>
                     </Typography>
-                    <NavLink to="/login" className={classes.navLink}>
+                    <NavLink to="/login" onClick={() => login(path)} className={classes.navLink}>
                         <Button color="inherit">ログイン</Button>
                     </NavLink>
                 </Toolbar>

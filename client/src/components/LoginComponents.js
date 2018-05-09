@@ -46,7 +46,8 @@ class Login extends Component {
     render() {
         const {
             classes,
-            login
+            login,
+            previousPath
         } = this.props
 
         return (
@@ -73,7 +74,7 @@ class Login extends Component {
                             </CardContent>
                             <CardActions>
                                 <Button color='primary' onClick={() => login(this.state.email, this.state.password)}>ログイン</Button>
-                                <NavLink to='/'>
+                                <NavLink to={previousPath}>
                                     <Button color='primary'>キャンセル</Button>
                                 </NavLink>
                             </CardActions>

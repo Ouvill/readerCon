@@ -1,5 +1,4 @@
 import * as Actions from '../actions/message'
-import { stat } from 'fs';
 
 const insertItem = (array, item, index, ) => {
     return [

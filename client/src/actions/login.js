@@ -1,10 +1,18 @@
 import { push } from 'react-router-redux'
 import * as message from './message'
 
+export const OPEN_LOGIN_WINDOW = 'OPEN_LOGIN_WINDOW'
 export const TRY_LOGIN = 'TRY_LOGIN'
 export const SUCCESS_LOGIN = 'SUCESS_LOGIN'
 export const FAILED_LOGIN = 'FAILED_LOGIN'
 
+
+export const openLoginWindow = (previousPath) => {
+    return {
+        type: OPEN_LOGIN_WINDOW,
+        previousPath: previousPath
+    }
+}
 
 export const tryLogin = (email, password) => {
     return (dispatch, getState) => {
@@ -13,6 +21,7 @@ export const tryLogin = (email, password) => {
             'Accept': 'application/json',
             'Content-Type': 'application/json'
         };
+        const path = getState().previousPath
         fetch('/api/login', {
             method: 'POST',
             headers,
@@ -20,7 +29,7 @@ export const tryLogin = (email, password) => {
         }).then(response => response.json()).then(json => {
             if (json.result) {
                 dispatch(succesLogin(json.token));
-                dispatch(push('/'));
+                dispatch(push(path));
             } else {
                 dispatch(message.setMessage('ログインに失敗しました'));
             }
