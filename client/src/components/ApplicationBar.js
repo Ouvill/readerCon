@@ -38,10 +38,21 @@ class ApplicationBar extends Component {
                             </NavLink>
                     </Typography>
 
-                    {!displayName &&
-                        <NavLink to="/login" onClick={() => login(path)} className={classes.navLink}>
-                            <Button color="inherit">ログイン</Button>
-                        </NavLink>
+                    {
+                        (() => {
+                            if (!displayName && path != '/login' && path != '/registUser') {
+                                return (
+                                    <div>
+                                        <NavLink to="/registUser" onClick={() => login(path)} className={classes.navLink}>
+                                            <Button color="inherit">新規登録</Button>
+                                        </NavLink>
+                                        <NavLink to="/login" onClick={() => login(path)} className={classes.navLink}>
+                                            <Button color="inherit">ログイン</Button>
+                                        </NavLink>
+                                    </div>
+                                )
+                            }
+                        })()
                     }
                     {displayName &&
                         <div>

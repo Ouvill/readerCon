@@ -32,8 +32,9 @@ export const tryLogin = (email, password) => {
         }).then(response => response.json()).then(json => {
             if (json.result) {
                 dispatch(succesLogin(json));
+                dispatch(message.setMessage('ようこそ ' + json.userInfo.displayName));
                 dispatch(push(path));
-                dispatch(fetchData.recieve())
+                dispatch(fetchData.recieve());
             } else {
                 dispatch(message.setMessage('ログインに失敗しました'));
                 dispatch(fetchData.recieve())

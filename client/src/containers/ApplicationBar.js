@@ -11,7 +11,7 @@ const mapStateToProps = (state, ownProps) => {
 }
 
 const mapDispatchToProps = dispatch => ({
-    login: (path) => { if (path != '/login') { dispatch(Actions.openLoginWindow(path)) } },
+    login: (path) => { if (path != '/login' && path != '/registUser') { dispatch(Actions.openLoginWindow(path)) } },
     logout: () => { dispatch(Actions.logout()) }
 })
 
