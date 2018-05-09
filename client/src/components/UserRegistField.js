@@ -6,6 +6,7 @@ import Button from 'material-ui/Button';
 import { NavLink } from 'react-router-dom'
 import Card, { CardActions, CardContent } from 'material-ui/Card';
 import Grid from 'material-ui/Grid';
+import LogPathNavLinkButton from '../containers/logPathNavLinkButton'
 
 const styles = theme => ({
     root: {
@@ -107,6 +108,9 @@ class UserRegistField extends Component {
                                 />
                             </CardContent>
                             <CardActions>
+                                <LogPathNavLinkButton to='/login' color='primary'>
+                                    ログイン
+                                </LogPathNavLinkButton>
                                 <div className={classes.interface}>
                                     <Button
                                         type='submit'

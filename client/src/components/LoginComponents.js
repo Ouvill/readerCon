@@ -5,6 +5,7 @@ import Button from 'material-ui/Button';
 import { NavLink } from 'react-router-dom'
 import Card, { CardActions, CardContent } from 'material-ui/Card';
 import Grid from 'material-ui/Grid';
+import LogPathNavLinkButton from '../containers/logPathNavLinkButton'
 
 const styles = theme => ({
     root: {
@@ -81,6 +82,11 @@ class Login extends Component {
                                     className={classes.textField} />
                             </CardContent>
                             <CardActions className={classes.actions}>
+
+                                <LogPathNavLinkButton to='/registUser' color='primary'>
+                                    新規登録
+                                </LogPathNavLinkButton>
+
                                 <div className={classes.interface}>
                                     <Button color='primary' onClick={() => login(this.state.email, this.state.password)}>ログイン</Button>
                                     <NavLink to={previousPath}>
