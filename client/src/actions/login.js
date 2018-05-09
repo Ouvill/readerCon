@@ -5,6 +5,7 @@ export const OPEN_LOGIN_WINDOW = 'OPEN_LOGIN_WINDOW'
 export const TRY_LOGIN = 'TRY_LOGIN'
 export const SUCCESS_LOGIN = 'SUCESS_LOGIN'
 export const FAILED_LOGIN = 'FAILED_LOGIN'
+export const LOGOUT = 'LOGOUT';
 
 
 export const openLoginWindow = (previousPath) => {
@@ -54,5 +55,13 @@ const failedLogin = () => {
     return {
         type: FAILED_LOGIN,
     }
+}
 
+export const logout = () => {
+    return (dispatch, getState) => {
+        dispatch(message.setMessage('ログアウトしました'))
+        dispatch({
+            type: LOGOUT
+        })
+    }
 }
