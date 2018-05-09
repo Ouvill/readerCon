@@ -20,6 +20,14 @@ const styles = theme => ({
         width: 200,
         display: 'block',
     },
+
+    actions: {
+        // display: 'flex',
+    },
+    interface: {
+        marginLeft: 'auto',
+    },
+
     button: {
         margin: theme.spacing.unit,
     },
@@ -72,11 +80,13 @@ class Login extends Component {
                                     onChange={(e) => this.handleInput(e, 'password')}
                                     className={classes.textField} />
                             </CardContent>
-                            <CardActions>
-                                <Button color='primary' onClick={() => login(this.state.email, this.state.password)}>ログイン</Button>
-                                <NavLink to={previousPath}>
-                                    <Button color='primary'>キャンセル</Button>
-                                </NavLink>
+                            <CardActions className={classes.actions}>
+                                <div className={classes.interface}>
+                                    <Button color='primary' onClick={() => login(this.state.email, this.state.password)}>ログイン</Button>
+                                    <NavLink to={previousPath}>
+                                        <Button color='primary'>キャンセル</Button>
+                                    </NavLink>
+                                </div>
                             </CardActions>
                         </Card>
                     </Grid>

@@ -37,10 +37,6 @@ class App extends Component {
         {/* <Button>
           <a href='/api/twitter/oauth'>twitter</a>
         </Button> */}
-
-        <Button component={NavLink} to='/registuser'
-        >新規ユーザー登録</Button>
-        <Button onClick={logout}>logout</Button>
       </div>
     );
   }
