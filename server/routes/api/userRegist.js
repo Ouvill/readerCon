@@ -23,7 +23,8 @@ router.post('/', async function (req, res, next) {
     if (userName == '' || displayName == '' || email == '' || password == '') {
         res.json({
             result: false,
-            message: 'not null'
+            message: 'not null',
+            messageJa: '入力項目に空白があります'
         })
         return
     }
@@ -34,7 +35,8 @@ router.post('/', async function (req, res, next) {
     if (await existsEmail(cipherEmail)) {
         res.json({
             result: false,
-            message: "input email is exists"
+            message: "input email is exists",
+            messageJa: '既に登録されているメールアドレスです'
         });
         return
     }
@@ -42,7 +44,8 @@ router.post('/', async function (req, res, next) {
     if (await existUserName(userName)) {
         res.json({
             result: false,
-            message: "input user name is exists"
+            message: "input user name is exists",
+            messageJa: '既に存在するユーザーIDです'
         });
         return
     }

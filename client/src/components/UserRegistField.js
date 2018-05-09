@@ -4,16 +4,26 @@ import { withStyles } from 'material-ui/styles';
 import TextField from 'material-ui/TextField';
 import Button from 'material-ui/Button';
 import { NavLink } from 'react-router-dom'
+import Card, { CardActions, CardContent } from 'material-ui/Card';
+import Grid from 'material-ui/Grid';
+import LogPathNavLinkButton from '../containers/logPathNavLinkButton'
 
 const styles = theme => ({
+    root: {
+        padding: theme.spacing.unit
+    },
     container: {
         display: 'flex',
         flexWrap: 'wrap',
     },
     textField: {
-        marginLeft: theme.spacing.unit,
-        marginRight: theme.spacing.unit,
+        marginLeft: 'auto',
+        marginRight: 'auto',
         width: 200,
+        display: 'block',
+    },
+    interface: {
+        marginLeft: 'auto',
     },
     menu: {
         width: 200,
@@ -27,6 +37,21 @@ class UserRegistField extends Component {
     constructor(props) {
         super(props);
         this.handleCancel = this.handleCancel.bind(this);
+        this.handleInput = this.handleInput.bind(this);
+
+        this.state = {
+            userName: '',
+            displayName: '',
+            email: '',
+            password: '',
+        }
+    }
+
+    handleInput(target, value) {
+        this.setState(
+            { [target]: value }
+        )
+
     }
 
     handleCancel() {
@@ -34,75 +59,82 @@ class UserRegistField extends Component {
     }
     render() {
         const { classes,
-            tentativeUser,
-            setTentativeUserData,
-            postTentativeUserData } = this.props;
-        return (
-            <div className='UserRegist'>
-                <form className={classes.container}>
-                    <TextField
-                        required
-                        id="userName"
-                        label="ユーザーID"
-                        className={classes.textField}
-                        onChange={(e) => setTentativeUserData('userName', e.target.value, )}
-                        value={tentativeUser.userName}
-                        margin="normal"
-                    />
-                    <TextField
-                        required
-                        id="displayName"
-                        label="ユーザー名"
-                        className={classes.textField}
-                        onChange={(e) => setTentativeUserData('displayName', e.target.value, )}
-                        value={tentativeUser.displayName}
-                        margin="normal"
-                    />
-                    <TextField
-                        required
-                        type='email'
-                        id="email"
-                        label="メールアドレス"
-                        className={classes.textField}
-                        onChange={(e) => setTentativeUserData('email', e.target.value, )}
-                        value={tentativeUser.email}
-                        margin="normal"
-                    />
-                    <TextField
-                        required
-                        type='password'
-                        id="password"
-                        label="パスワード"
-                        className={classes.textField}
-                        onChange={(e) => setTentativeUserData('password', e.target.value)}
-                        value={tentativeUser.password}
-                        margin="normal"
-                    />
-                    <Button
-                        type='submit'
-                        variant="raised"
-                        onClick={(e) => {
-                            e.preventDefault(); postTentativeUserData();
-                            this.props.history.push("/")
-                        }}
-                    >新規登録</Button>
-                    <NavLink
-                        to='/'>
-                        <Button
-                            type='reset'
-                            variant='raised'
+            tryRegist } = this.props;
+        let { userName, displayName, email, password } = this.state
 
-                        >キャンセル</Button>
-                    </NavLink>
-                </form>
+        return (
+            <div className={classes.root}>
+                <Grid container justify='center'>
+                    <Grid item xs={12} md={8} ld={6} >
+                        <Card>
+                            <CardContent className={classes.content}>
+                                <TextField
+                                    required
+                                    id="userName"
+                                    label="ユーザーID"
+                                    className={classes.textField}
+                                    onChange={(e) => this.handleInput('userName', e.target.value, )}
+                                    value={this.state.userName}
+                                    margin="normal"
+                                />
+                                <TextField
+                                    required
+                                    id="displayName"
+                                    label="ユーザー名"
+                                    className={classes.textField}
+                                    onChange={(e) => this.handleInput('displayName', e.target.value, )}
+                                    value={this.state.displayName}
+                                    margin="normal"
+                                />
+                                <TextField
+                                    required
+                                    type='email'
+                                    id="email"
+                                    label="メールアドレス"
+                                    className={classes.textField}
+                                    onChange={(e) => this.handleInput('email', e.target.value, )}
+                                    value={this.state.email}
+                                    margin="normal"
+                                />
+                                <TextField
+                                    required
+                                    type='password'
+                                    id="password"
+                                    label="パスワード"
+                                    className={classes.textField}
+                                    onChange={(e) => this.handleInput('password', e.target.value)}
+                                    value={this.state.password}
+                                    margin="normal"
+                                />
+                            </CardContent>
+                            <CardActions>
+                                <LogPathNavLinkButton to='/login' color='primary'>
+                                    ログイン
+                                </LogPathNavLinkButton>
+                                <div className={classes.interface}>
+                                    <Button
+                                        type='submit'
+                                        color='primary'
+                                        onClick={(e) => {
+                                            tryRegist(userName, displayName, email, password);
+                                        }}
+                                    >新規登録</Button>
+                                    <NavLink
+                                        to='/'>
+                                        <Button
+                                            type='reset'
+                                            color='primary'
+
+                                        >キャンセル</Button>
+                                    </NavLink>
+                                </div>
+                            </CardActions>
+                        </Card>
+                    </Grid>
+                </Grid>
             </div>
         )
     }
-}
-
-UserRegistField.propTypes = {
-    setTentativeUserData: PropTypes.func.isRequired,
-    postTentativeUserData: PropTypes.func.isRequired,
 }
 
 export default withStyles(styles)(UserRegistField)

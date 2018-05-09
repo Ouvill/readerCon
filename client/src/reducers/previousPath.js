@@ -1,8 +1,8 @@
-import { OPEN_LOGIN_WINDOW } from '../actions/login'
+import { LOG_PREVIOUS_PATH } from '../actions/previousPath'
 
 const previousPath = (state = '/', action) => {
     switch (action.type) {
-        case OPEN_LOGIN_WINDOW:
+        case LOG_PREVIOUS_PATH:
             return action.previousPath
         default:
             return state

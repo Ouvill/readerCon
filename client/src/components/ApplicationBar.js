@@ -28,7 +28,7 @@ class ApplicationBar extends Component {
 
 
     render() {
-        const { classes, login, logout, path, displayName } = this.props;
+        const { classes, logPath, logout, path, displayName } = this.props;
         return (
             <AppBar position="static">
                 <Toolbar>
@@ -43,10 +43,10 @@ class ApplicationBar extends Component {
                             if (!displayName && path != '/login' && path != '/registUser') {
                                 return (
                                     <div>
-                                        <NavLink to="/registUser" onClick={() => login(path)} className={classes.navLink}>
+                                        <NavLink to="/registUser" onClick={() => logPath(path)} className={classes.navLink}>
                                             <Button color="inherit">新規登録</Button>
                                         </NavLink>
-                                        <NavLink to="/login" onClick={() => login(path)} className={classes.navLink}>
+                                        <NavLink to="/login" onClick={() => logPath(path)} className={classes.navLink}>
                                             <Button color="inherit">ログイン</Button>
                                         </NavLink>
                                     </div>

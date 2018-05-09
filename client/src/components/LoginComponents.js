@@ -5,6 +5,7 @@ import Button from 'material-ui/Button';
 import { NavLink } from 'react-router-dom'
 import Card, { CardActions, CardContent } from 'material-ui/Card';
 import Grid from 'material-ui/Grid';
+import LogPathNavLinkButton from '../containers/logPathNavLinkButton'
 
 const styles = theme => ({
     root: {
@@ -20,6 +21,14 @@ const styles = theme => ({
         width: 200,
         display: 'block',
     },
+
+    actions: {
+        // display: 'flex',
+    },
+    interface: {
+        marginLeft: 'auto',
+    },
+
     button: {
         margin: theme.spacing.unit,
     },
@@ -72,11 +81,18 @@ class Login extends Component {
                                     onChange={(e) => this.handleInput(e, 'password')}
                                     className={classes.textField} />
                             </CardContent>
-                            <CardActions>
-                                <Button color='primary' onClick={() => login(this.state.email, this.state.password)}>ログイン</Button>
-                                <NavLink to={previousPath}>
-                                    <Button color='primary'>キャンセル</Button>
-                                </NavLink>
+                            <CardActions className={classes.actions}>
+
+                                <LogPathNavLinkButton to='/registUser' color='primary'>
+                                    新規登録
+                                </LogPathNavLinkButton>
+
+                                <div className={classes.interface}>
+                                    <Button color='primary' onClick={() => login(this.state.email, this.state.password)}>ログイン</Button>
+                                    <NavLink to={previousPath}>
+                                        <Button color='primary'>キャンセル</Button>
+                                    </NavLink>
+                                </div>
                             </CardActions>
                         </Card>
                     </Grid>

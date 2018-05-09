@@ -2,7 +2,6 @@ import fetch from 'cross-fetch'
 
 export const REQUEST_USERINFO = 'REQUEST_USERINFO';
 export const RECIEVE_USERINFO = 'RECIEVE_USERINFO';
-export const LOGOUT = 'LOGOUT';
 export const LOGIN = 'LOGIN';
 export const REGIST = 'REGIST';
 export const REGIST_CANCEL = 'REGIST_CANCEL';
@@ -23,11 +22,7 @@ function recieveUserInfo(json) {
     }
 }
 
-function logout() {
-    return {
-        type: LOGOUT
-    }
-}
+
 
 export function fetchUserInfo() {
     return (dispatch, getState) => {
@@ -47,14 +42,6 @@ export function fetchUserInfo() {
                 console.log(json);
                 dispatch(recieveUserInfo(json))
             });
-    }
-}
-
-export function fetchLogout() {
-    return dispatch => {
-        return fetch('/api/logout')
-            .then(response => response.json())
-            .then(json => dispatch(logout()))
     }
 }
 
