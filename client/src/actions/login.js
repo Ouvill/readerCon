@@ -28,21 +28,24 @@ export const tryLogin = (email, password) => {
             body: JSON.stringify(json),
         }).then(response => response.json()).then(json => {
             if (json.result) {
-                dispatch(succesLogin(json.token));
+                dispatch(succesLogin(json));
                 dispatch(push(path));
             } else {
                 dispatch(message.setMessage('ログインに失敗しました'));
             }
-        }).catch(err =>
+        }).catch(err => {
+            console.log(err.stack)
             dispatch(message.setMessage('ログインに失敗しました'))
+        }
         );
     }
 }
 
-const succesLogin = (token) => {
+const succesLogin = (json) => {
     return {
         type: SUCCESS_LOGIN,
-        token
+        token: json.token,
+        userInfo: json.userInfo
     }
 
 }

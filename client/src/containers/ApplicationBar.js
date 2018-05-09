@@ -5,6 +5,7 @@ import ApplicationBarComponents from '../components/ApplicationBar'
 
 const mapStateToProps = (state, ownProps) => {
     return {
+        displayName: state.user.userInfo.displayName,
         path: state.router.location.pathname
     }
 }
