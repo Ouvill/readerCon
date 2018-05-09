@@ -45,10 +45,7 @@ class ApplicationBar extends Component {
                     }
                     {displayName &&
                         <div>
-
                             {displayName}
-
-
                             <Button color='inherit' onClick={logout}>ログアウト</Button>
                         </div>
                     }

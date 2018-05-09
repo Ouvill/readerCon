@@ -11,7 +11,8 @@ const mapStateToProps = (state, ownProps) => {
 }
 
 const mapDispatchToProps = dispatch => ({
-    login: (path) => { dispatch(Actions.openLoginWindow(path)) }
+    login: (path) => { if (path != '/login') { dispatch(Actions.openLoginWindow(path)) } },
+    logout: () => { dispatch(Actions.logout()) }
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(ApplicationBarComponents)
