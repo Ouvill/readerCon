@@ -7,7 +7,7 @@ import { history } from '../configureStore'
 import App from './App'
 import UserRegist from '../containers/UserRegits'
 import Login from '../containers/Login';
-import Navigations from './Navigation';
+import Navigations from '../containers/Navigation';
 import { withStyles } from 'material-ui';
 import ApplicationBar from '../containers/ApplicationBar';
 import ContestList from './ContestList';

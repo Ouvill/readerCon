@@ -1,5 +1,6 @@
 import { push } from 'react-router-redux'
 import * as message from './message'
+import * as fetchData from './fetchData'
 
 export const OPEN_LOGIN_WINDOW = 'OPEN_LOGIN_WINDOW'
 export const TRY_LOGIN = 'TRY_LOGIN'
@@ -23,6 +24,7 @@ export const tryLogin = (email, password) => {
             'Content-Type': 'application/json'
         };
         const path = getState().previousPath
+        dispatch(fetchData.request())
         fetch('/api/login', {
             method: 'POST',
             headers,
@@ -31,12 +33,15 @@ export const tryLogin = (email, password) => {
             if (json.result) {
                 dispatch(succesLogin(json));
                 dispatch(push(path));
+                dispatch(fetchData.recieve())
             } else {
                 dispatch(message.setMessage('ログインに失敗しました'));
+                dispatch(fetchData.recieve())
             }
         }).catch(err => {
             console.log(err.stack)
-            dispatch(message.setMessage('ログインに失敗しました'))
+            dispatch(message.setMessage('ログインに失敗しました'));
+            dispatch(fetchData.recieve());
         }
         );
     }
