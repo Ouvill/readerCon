@@ -3,8 +3,7 @@ import LoginComponents from '../components/LoginComponents'
 import { tryLogin } from '../actions/login'
 
 const mapStateToProps = (state, ownProps) => ({
-    previousPath: state.previousPath
-
+    previousPath: state.previousPath,
 })
 
 const mapDispatchToProps = dispatch => ({

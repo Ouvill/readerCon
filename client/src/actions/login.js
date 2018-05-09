@@ -5,6 +5,7 @@ export const OPEN_LOGIN_WINDOW = 'OPEN_LOGIN_WINDOW'
 export const TRY_LOGIN = 'TRY_LOGIN'
 export const SUCCESS_LOGIN = 'SUCESS_LOGIN'
 export const FAILED_LOGIN = 'FAILED_LOGIN'
+export const LOGOUT = 'LOGOUT';
 
 
 export const openLoginWindow = (previousPath) => {
@@ -28,21 +29,24 @@ export const tryLogin = (email, password) => {
             body: JSON.stringify(json),
         }).then(response => response.json()).then(json => {
             if (json.result) {
-                dispatch(succesLogin(json.token));
+                dispatch(succesLogin(json));
                 dispatch(push(path));
             } else {
                 dispatch(message.setMessage('ログインに失敗しました'));
             }
-        }).catch(err =>
+        }).catch(err => {
+            console.log(err.stack)
             dispatch(message.setMessage('ログインに失敗しました'))
+        }
         );
     }
 }
 
-const succesLogin = (token) => {
+const succesLogin = (json) => {
     return {
         type: SUCCESS_LOGIN,
-        token
+        token: json.token,
+        userInfo: json.userInfo
     }
 
 }
@@ -51,5 +55,13 @@ const failedLogin = () => {
     return {
         type: FAILED_LOGIN,
     }
+}
 
+export const logout = () => {
+    return (dispatch, getState) => {
+        dispatch(message.setMessage('ログアウトしました'))
+        dispatch({
+            type: LOGOUT
+        })
+    }
 }

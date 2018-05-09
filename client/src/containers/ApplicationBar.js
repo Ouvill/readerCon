@@ -5,12 +5,14 @@ import ApplicationBarComponents from '../components/ApplicationBar'
 
 const mapStateToProps = (state, ownProps) => {
     return {
+        displayName: state.user.userInfo.displayName,
         path: state.router.location.pathname
     }
 }
 
 const mapDispatchToProps = dispatch => ({
-    login: (path) => { dispatch(Actions.openLoginWindow(path)) }
+    login: (path) => { if (path != '/login') { dispatch(Actions.openLoginWindow(path)) } },
+    logout: () => { dispatch(Actions.logout()) }
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(ApplicationBarComponents)

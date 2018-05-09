@@ -10,7 +10,7 @@ import { Typography } from 'material-ui';
 
 class App extends Component {
   componentDidMount() {
-    this.props.getUserInfo();
+    // this.props.getUserInfo();
   }
 
   render() {
