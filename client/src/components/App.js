@@ -28,9 +28,12 @@ class App extends Component {
           <Typography>
             匿名コンテストをもっと気軽に立ち上げることができるようなシステムを現在開発中ですので、暫くお待ちください。
           </Typography>
+          <Typography>
+            トップ画面には新着情報やランダムピックアップを表示する
+          </Typography>
         </div>
 
-        {userInfo.display_name && <p> Welcome {userInfo.display_name} </p>}
+        {userInfo.displayName && <p> Welcome {userInfo.displayName} </p>}
         {/* <Button>
           <a href='/api/twitter/oauth'>twitter</a>
         </Button> */}
