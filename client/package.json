@@ -24,6 +24,7 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom",
+    "mocha": "mocha --compilers js:babel-register `find test`",
     "eject": "react-scripts eject"
   },
   "proxy": {
@@ -31,5 +32,12 @@
       "target": "http://node_server:3000",
       "secure": false
     }
+  },
+  "devDependencies": {
+    "babel-core": "^6.26.3",
+    "babel-preset-es2015": "^6.24.1",
+    "babel-preset-react": "^6.24.1",
+    "chai": "^4.1.2",
+    "mocha": "^5.1.1"
   }
 }
