@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import {
   fetchUserInfo,
-  fetchLogout
 } from '../actions/user'
 import { connect } from 'react-redux';
 import Button from 'material-ui/Button';
@@ -14,7 +13,7 @@ class App extends Component {
   }
 
   render() {
-    const { userInfo, logout } = this.props
+    const { userInfo } = this.props
 
     return (
       <div className="App">
@@ -50,7 +49,6 @@ const mapStateToProps = (state, ownProps) => {
 
 const mapDispatchToProps = (dispatch, state) => {
   return {
-    logout: () => dispatch(fetchLogout()),
     getUserInfo: () => dispatch(fetchUserInfo())
   }
 }

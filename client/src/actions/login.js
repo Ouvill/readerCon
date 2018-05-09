@@ -2,19 +2,10 @@ import { push } from 'react-router-redux'
 import * as message from './message'
 import * as fetchData from './fetchData'
 
-export const OPEN_LOGIN_WINDOW = 'OPEN_LOGIN_WINDOW'
 export const TRY_LOGIN = 'TRY_LOGIN'
 export const SUCCESS_LOGIN = 'SUCESS_LOGIN'
 export const FAILED_LOGIN = 'FAILED_LOGIN'
 export const LOGOUT = 'LOGOUT';
-
-
-export const openLoginWindow = (previousPath) => {
-    return {
-        type: OPEN_LOGIN_WINDOW,
-        previousPath: previousPath
-    }
-}
 
 export const tryLogin = (email, password) => {
     return (dispatch, getState) => {

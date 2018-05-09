@@ -1,9 +1,8 @@
 import {
     REQUEST_USERINFO,
     RECIEVE_USERINFO,
-    LOGOUT,
 } from '../actions/user'
-import { SUCCESS_LOGIN } from '../actions/login'
+import { SUCCESS_LOGIN, LOGOUT } from '../actions/login'
 
 const user = (state = { userInfo: {} }, action) => {
     switch (action.type) {
