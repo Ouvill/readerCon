@@ -1,12 +1,14 @@
-import {push} from 'react-router-redux'
+import { push } from 'react-router-redux'
+import * as message from './message'
 
 export const TRY_LOGIN = 'TRY_LOGIN'
 export const SUCCESS_LOGIN = 'SUCESS_LOGIN'
 export const FAILED_LOGIN = 'FAILED_LOGIN'
 
+
 export const tryLogin = (email, password) => {
     return (dispatch, getState) => {
-        const json={email, password}
+        const json = { email, password }
         const headers = {
             'Accept': 'application/json',
             'Content-Type': 'application/json'
@@ -20,9 +22,11 @@ export const tryLogin = (email, password) => {
                 dispatch(succesLogin(json.token));
                 dispatch(push('/'));
             } else {
-                dispatch(failedLogin);
+                dispatch(message.setMessage('ログインに失敗しました'));
             }
-        });
+        }).catch(err =>
+            dispatch(message.setMessage('ログインに失敗しました'))
+        );
     }
 }
 

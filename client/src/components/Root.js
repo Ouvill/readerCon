@@ -18,7 +18,6 @@ import CreateNovel from './CreateNovel';
 import Contest from './Contest';
 import ChapterViewer from '../containers/ChapterViewer';
 import Novel from '../containers/Novel'
-import Grid from 'material-ui/Grid';
 import ApplyContest from './ApplyContest';
 import ConsencutiveSnackbars from '../containers/ConsencutiveSnackbars';
 
@@ -56,6 +55,7 @@ class Root extends Component {
                         <div>
                             <div className={classes.main}>
                                 <ApplicationBar className={classes.header} />
+
                                 <Route exact path="/" component={App} />
                                 <Route path="/registUser" component={UserRegist} />
                                 <Route path='/login' component={Login} />
@@ -67,6 +67,7 @@ class Root extends Component {
                                 <Route exact path={route.novels + ':novelId'} component={Novel} />
                                 <Route path={'/novels/:novelId/chapters/:chapterNum'} component={ChapterViewer} />
                                 <Route path='/applyContest/:contestId' component={ApplyContest} />
+
                             </div>
                             <ConsencutiveSnackbars />
                             <Navigations className={classes.navi} />

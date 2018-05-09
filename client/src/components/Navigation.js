@@ -6,11 +6,12 @@ import { LinearProgress } from 'material-ui/Progress';
 
 const styles = {
     root: {
+        width: '100vw',
         position: 'fixed',
         bottom: 0,
         left: '50%',
         transform: 'translateX(-50%)',
-        zIndex: 1
+        zIndex: 1,
     },
 };
 

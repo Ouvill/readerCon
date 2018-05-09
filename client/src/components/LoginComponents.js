@@ -3,19 +3,22 @@ import { withStyles } from 'material-ui/styles';
 import TextField from 'material-ui/TextField';
 import Button from 'material-ui/Button';
 import { NavLink } from 'react-router-dom'
+import Card, { CardActions, CardContent } from 'material-ui/Card';
+import Grid from 'material-ui/Grid';
 
 const styles = theme => ({
-    container: {
-        display: 'flex',
-        flexWrap: 'wrap',
+    root: {
+        padding: theme.spacing.unit
+    },
+
+    content: {
+        textAlign: 'center'
     },
     textField: {
-        marginLeft: theme.spacing.unit,
-        marginRight: theme.spacing.unit,
+        marginLeft: 'auto',
+        marginRight: 'auto',
         width: 200,
-    },
-    menu: {
-        width: 200,
+        display: 'block',
     },
     button: {
         margin: theme.spacing.unit,
@@ -47,26 +50,36 @@ class Login extends Component {
         } = this.props
 
         return (
-            <div className='Login'>
-                <TextField
-                    required
-                    type='email'
-                    label='メールアドレス'
-                    value={this.state.email}
-                    onChange={(e) => this.handleInput(e, 'email')}
-                    className={classes.textField}
-                />
-                <TextField
-                    required
-                    type='password'
-                    label='パスワード'
-                    value={this.state.password}
-                    onChange={(e) => this.handleInput(e, 'password')}
-                    className={classes.textField} />
-                <Button variant='raised' onClick={() => login(this.state.email, this.state.password)}>ログイン</Button>
-                <NavLink to='/'>
-                    <Button variant='raised'>キャンセル</Button>
-                </NavLink>
+            <div className={classes.root}>
+                <Grid container justify='center'>
+                    <Grid item xs={12} md={8} ld={6} >
+                        <Card>
+                            <CardContent className={classes.content}>
+                                <TextField
+                                    required
+                                    type='email'
+                                    label='メールアドレス'
+                                    value={this.state.email}
+                                    onChange={(e) => this.handleInput(e, 'email')}
+                                    className={classes.textField}
+                                />
+                                <TextField
+                                    required
+                                    type='password'
+                                    label='パスワード'
+                                    value={this.state.password}
+                                    onChange={(e) => this.handleInput(e, 'password')}
+                                    className={classes.textField} />
+                            </CardContent>
+                            <CardActions>
+                                <Button color='primary' onClick={() => login(this.state.email, this.state.password)}>ログイン</Button>
+                                <NavLink to='/'>
+                                    <Button color='primary'>キャンセル</Button>
+                                </NavLink>
+                            </CardActions>
+                        </Card>
+                    </Grid>
+                </Grid>
             </div>
         )
     }
