@@ -23,7 +23,7 @@ export const tryRegist = (userName, displayName, email, password) => {
                 dispatch(push('/'))
                 dispatch(message.setMessage('ユーザー登録が完了しました。ログインしてください。'));
             } else {
-                dispatch(message.setMessage('ユーザー登録に失敗しました'));
+                dispatch(message.setMessage(json.messageJa));
             }
             dispatch(fetchData.recieve());
         }).catch(err => {
