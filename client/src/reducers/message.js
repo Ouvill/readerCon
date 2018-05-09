@@ -1,4 +1,13 @@
 import * as Actions from '../actions/message'
+import { stat } from 'fs';
+
+const insertItem = (array, item, index, ) => {
+    return [
+        ...array.slice(0, index),
+        item,
+        ...array.slice(index)
+    ]
+}
 
 const removeItem = (array, index) => {
     return [
@@ -7,8 +16,17 @@ const removeItem = (array, index) => {
     ]
 }
 
-export const test = {
-    removeItem
+const processQueue = (state) => {
+    if (state.queue.length > 0) {
+        let current = state.queue[0]
+        let newQueue = removeItem(state.queue, 0);
+        return {
+            current: current,
+            queue: newQueue,
+            open: true,
+        }
+    }
+    return state
 }
 
 const message = (state = {
@@ -17,31 +35,28 @@ const message = (state = {
     current: {}
 }, action) => {
     switch (action.type) {
-        case SET_MESSAGE:
+        case Actions.SET_MESSAGE:
             let newState = Object.assign({}, state, {
-                open: !state.open,
-                queue: [...queue, {
+                queue: [...state.queue, {
                     message: action.message,
                     key: new Date().getTime(),
                 }]
             });
-            return newState
+            if (state.open) {
+                newState.open = false
+                return newState
+            } else {
+                newState = processQueue(newState);
+                return newState
+            }
 
-        case CLOSE_MESSAGE:
+        case Actions.CLOSE_MESSAGE:
             return Object.assign({}, state, {
                 open: false
             })
 
-        case EXITED_MESSAGE:
-            if (state.queue.length > 0) {
-                let message = state.queue[0]
-                let newQueue = state.queue.slice();
-                return Object.assign({}, state, {
-                    open: true,
-                    queue: newQueue,
-                    current: message
-                });
-            }
+        case Actions.EXITED_MESSAGE:
+            return processQueue(state)
         default:
             return state
     }
@@ -49,5 +64,9 @@ const message = (state = {
 
 
 
+export const test = {
+    removeItem,
+    message
+}
 
 export default message
