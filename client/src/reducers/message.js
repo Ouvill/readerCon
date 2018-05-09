@@ -1,8 +1,20 @@
 import * as Actions from '../actions/message'
 
+const removeItem = (array, index) => {
+    return [
+        ...array.slice(0, index),
+        ...array.slice(index + 1)
+    ]
+}
+
+export const test = {
+    removeItem
+}
+
 const message = (state = {
-    open:false,
-    queue: []
+    open: false,
+    queue: [],
+    current: {}
 }, action) => {
     switch (action.type) {
         case SET_MESSAGE:
@@ -22,10 +34,12 @@ const message = (state = {
 
         case EXITED_MESSAGE:
             if (state.queue.length > 0) {
+                let message = state.queue[0]
                 let newQueue = state.queue.slice();
                 return Object.assign({}, state, {
                     open: true,
-                    queue: newQueue
+                    queue: newQueue,
+                    current: message
                 });
             }
         default:
