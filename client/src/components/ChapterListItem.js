@@ -2,6 +2,7 @@ import React from 'react';
 import { ListItem, ListItemText } from 'material-ui/List';
 import { NavLink } from 'react-router-dom'
 import { withStyles } from 'material-ui/styles';
+import Divider from 'material-ui/Divider';
 
 const styles = theme => ({
     root: {
@@ -11,12 +12,15 @@ const styles = theme => ({
 
 });
 
-const ChapterListItem = ({ novelId, chapterId, chapterNum, title ,classes }) => {
+const ChapterListItem = ({ novelId, chapterId, chapterNum, title, classes }) => {
 
     return (
-        <ListItem className={classes.root} button component={NavLink} to={'/novels/'+ novelId +'/chapters/' + chapterNum} >
-            <ListItemText primary={title}/>
-        </ListItem>
+        <div>
+            <ListItem className={classes.root} button component={NavLink} to={'/novels/' + novelId + '/chapters/' + chapterNum} >
+                <ListItemText primary={title} />
+            </ListItem>
+            <Divider light />
+        </div>
     )
 }
 export default withStyles(styles)(ChapterListItem)
