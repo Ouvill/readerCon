@@ -80,12 +80,12 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
-app.use('/api/twitter', twitter);
-app.use('/api/userInfo', isLoggedIn, userInfo);
-app.use('/api/userRegist', userRegist);
-app.use('/api/login', login);
-app.use('/api/logout', logout);
-app.use('/api/contests', contests);
+app.use('/api/v1/twitter', twitter);
+app.use('/api/v1/userInfo', isLoggedIn, userInfo);
+app.use('/api/v1/userRegist', userRegist);
+app.use('/api/v1/login', login);
+app.use('/api/v1/logout', logout);
+app.use('/api/v1/contests', contests);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
