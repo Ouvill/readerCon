@@ -1,0 +1,126 @@
+const app = require('../../app');
+const expect = require("chai").expect;
+const chai = require('chai');
+const chaiHttp = require('chai-http');
+// const request = require('request');
+// const rp = require("request-promise");
+
+describe('/api/contests', function () {
+    chai.use(chaiHttp);
+
+    describe('GET /api/contests/', () => {
+        const url = '/api/v1/contests'
+        it('return status 200', (done) => {
+            chai.request(app)
+                .get(url)
+                .end((err, res) => {
+                    expect(err).to.be.null;
+                    expect(res).to.have.status(200);
+                    done();
+                })
+        });
+    });
+
+    describe('GET /api/contests/entryAccepting', () => {
+        const url = '/api/v1/contests/entryAccepting'
+        it('return status 200', (done) => {
+            chai.request(app)
+                .get(url)
+                .end((err, res) => {
+                    expect(err).to.be.null;
+                    expect(res).to.have.status(200);
+                    done();
+                })
+        });
+    });
+
+    describe('GET /api/contests/voteAccepting', () => {
+        const url = '/api/v1/contests/voteAccepting'
+        it('return status 200', (done) => {
+            chai.request(app)
+                .get(url)
+                .end((err, res) => {
+                    expect(err).to.be.null;
+                    expect(res).to.have.status(200);
+                    done();
+                })
+        });
+    });
+
+    describe('GET /api/contests/pastContests', () => {
+        const url = '/api/v1/contests/pastContests'
+        it('return status 200', (done) => {
+            chai.request(app)
+                .get(url)
+                .end((err, res) => {
+                    expect(err).to.be.null;
+                    expect(res).to.have.status(200);
+                    done();
+                })
+        });
+    });
+
+    describe('GET /api/v1/contests/1', () => {
+        it('return status 400', (done) => {
+            const url = '/api/v1/contests/hoge'
+            chai.request(app)
+                .get(url)
+                .end((err, res) => {
+                    expect(res).to.have.status(400);
+                    done();
+                })
+        });
+
+        it('return status 200', (done) => {
+            const url = '/api/v1/contests/1'
+            chai.request(app)
+                .get(url)
+                .end((err, res) => {
+                    expect(res).to.have.status(200);
+                    expect(res.body).to.have.all.keys('result', 'message', 'contest', 'novels');
+                    done();
+                });
+        })
+
+        it('return status 404', (done) => {
+            const url = '/api/v1/contests/1000'
+            chai.request(app)
+                .get(url)
+                .end((err, res) => {
+                    expect(res).to.have.status(404);
+                    expect(res.body).to.have.all.keys('result', 'message')
+                    done();
+                });
+        })
+    })
+
+    describe('POST /api/contests/create', function () {
+        it('return status 400', function (done) {
+            const url = '/api/v1/contests/create'
+            chai.request(app).post(url)
+                .send(JSON.stringify({
+                })).end(function (err, res) {
+                    expect(res).to.have.status(400);
+                    done();
+                });
+        });
+
+        it('return status 200', function (done) {
+            const url = '/api/v1/contests/create'
+            const body = {
+                title: "タイトル",
+                overview: 'あらすじ',
+                entryPeriod: '2018-05-12 00:00:00',
+                startContestAt: '2018-05-12 00:00:00',
+                contestPeriod: '2018-05-13 00:00:00'
+            };
+            chai.request(app)
+                .post(url)
+                .send(body)
+                .end(function (err, res) {
+                    expect(res).to.have.status(200);
+                    done();
+                });
+        });
+    });
+});
