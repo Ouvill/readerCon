@@ -177,8 +177,8 @@ router.get('/:contestId/novels/:novelId', async function (req, res, next) {
     }
 
     const novelQuery = {
-        text: 'SELECT * FROM novels WHERE novel_id = $1',
-        values: [novelId]
+        text: 'SELECT * FROM novels INNER JOIN contest_works ON novels.novel_id = contest_works.novel_id AND novels.novel_id = $1 AND contest_works.contest_id = $2',
+        values: [contestId, novelId]
     }
 
     const chapterListQuery = {
