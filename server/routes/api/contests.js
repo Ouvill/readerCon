@@ -3,6 +3,7 @@ const router = express.Router();
 const moment = require('moment');
 const db = require('../../utils/pgConnection');
 const camel = require('../../utils/camelConverter');
+const user = require('../../utils/db/user')
 
 /* GET constests listing. */
 router.get('/', async function (req, res, next) {
@@ -154,10 +155,87 @@ router.get('/:contestId', async function (req, res, next) {
             message: 'server error'
         })
     }
-
 })
 
-// contests を作成
+
+router.get('/:contestId/novels/:novelId', async function (req, res, next) {
+    const contestId = req.params.contestId
+    const novelId = req.params.novelId
+
+    if (!isFinite(contestId) || !isFinite(novelId)) {
+        // res.status(400);
+        res.status(400).json({
+            result: false,
+            message: 'bad requests'
+        })
+        return
+    }
+
+    const contestQuery = {
+        text: 'SELECT * FROM contests where contest_id = $1',
+        values: [contestId]
+    }
+
+    const novelQuery = {
+        text: 'SELECT * FROM novels WHERE novel_id = $1',
+        values: [novelId]
+    }
+
+    const chapterListQuery = {
+        text: 'SELECT * FROM chapters WHERE novel_id = $1 ORDER BY number ASC',
+        values: [novelId]
+    }
+
+    try {
+        const contestRows = (await db.query(contestQuery)).rows
+        let contest = contestRows.length ? contestRows[0] : false
+        if (!contest) {
+            res.status(404).json({
+                result: false,
+                message: 'no contests'
+            });
+            return
+        }
+
+        const novelRows = (await db.query(novelQuery)).rows
+        const novel = novelRows.length ? novelRows[0] : false
+        if (!novel) {
+            res.status(404).json({
+                result: false,
+                message: 'no novel'
+            });
+            return
+        }
+        const chapterList = (await db.query(chapterListQuery)).rows
+
+        contest.novel = novel;
+        novel.chapters = chapterList
+        contest = camel.jsonKeyToLowerCamel(contest)
+
+        let author = {}
+        if (moment(contest.contestPeriod).isAfter(moment())) {
+            delete contest.novel.authorId
+        } else {
+            author = await user.publicInfo(contest.novel.authorId);
+            novel.author = author
+        }
+
+        res.json({
+            result: true,
+            message: 'here you are',
+            contest: contest
+        })
+
+    } catch (err) {
+        console.log(err.stack);
+        res.status(500).json({
+            result: false,
+            message: 'server error'
+        });
+    }
+})
+
+// contests を作戝
 router.post('/create', function (req, res, next) {
     const { title, overview, entryPeriod, startContestAt, contestPeriod } = req.body
     if (!title || !overview || !entryPeriod || !startContestAt || !contestPeriod) {

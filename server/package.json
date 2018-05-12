@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "start": "nodemon ./bin/www",
-    "test": "mocha `find test` --exit"
+    "test": "mocha `find test -name '*.js'` --exit"
   },
   "dependencies": {
     "connect-redis": "^3.3.3",
