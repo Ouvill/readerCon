@@ -2,6 +2,7 @@ const express = require('express');
 const router = express.Router();
 const moment = require('moment');
 const db = require('../../utils/pgConnection');
+const isLoggedIn = require('../../utils/isLoggedIn');
 const camel = require('../../utils/camelConverter');
 const dbUsers = require('../../utils/db/users')
 const dbContests = require('../../utils/db/contests');
@@ -283,7 +284,7 @@ router.get('/:contestId/novels/:novelId/chapters/:chapterNum', async function (r
 })
 
 // contests を作戝
-router.post('/create', function (req, res, next) {
+router.post('/create', isLoggedIn, function (req, res, next) {
     const { title, overview, entryPeriod, startContestAt, contestPeriod } = req.body
     if (!title || !overview || !entryPeriod || !startContestAt || !contestPeriod) {
         res.statusCode = 400;
