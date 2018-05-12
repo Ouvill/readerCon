@@ -129,15 +129,20 @@ router.get('/:contestId', async function (req, res, next) {
 
     try {
 
-        const novels = (await db.query(novels_query)).rows;
+        let novels = []
         // const novels = novel_res.rows;
         const contest = await dbContests.info(contestId);
+
+        if (moment(contest.startContestAt).isBefore(moment())) {
+            novels = (await db.query(novels_query)).rows;
+            novels = camel.jsonKeyToLowerCamel(novels)
+        }
         if (contest) {
             res.json({
                 result: true,
                 message: 'here you are',
                 contest: camel.jsonKeyToLowerCamel(contest),
-                novels: camel.jsonKeyToLowerCamel(novels),
+                novels: novels,
             });
             return
         } else {
