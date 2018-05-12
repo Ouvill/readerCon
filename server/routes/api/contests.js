@@ -4,6 +4,7 @@ const moment = require('moment');
 const db = require('../../utils/pgConnection');
 const camel = require('../../utils/camelConverter');
 const user = require('../../utils/db/user')
+const dbContests = require('../../utils/db/contests');
 
 /* GET constests listing. */
 router.get('/', async function (req, res, next) {
@@ -118,22 +119,16 @@ router.get('/:contestId', async function (req, res, next) {
         return
     }
 
-    const query = {
-        name: 'get contest',
-        text: 'SELECT * FROM contests WHERE contest_id=$1',
-        values: [contestId]
-    }
-
     const novels_query = {
         text: 'SELECT * FROM contest_works INNER JOIN novels ON contest_works.novel_id = novels.novel_id WHERE contest_works.contest_id=$1',
         values: [contestId]
     }
 
     try {
-        const { rows } = await db.query(query);
+
         const novels = (await db.query(novels_query)).rows;
         // const novels = novel_res.rows;
-        const contest = rows.length ? rows[0] : false;
+        const contest = await dbContests.info(contestId);
         if (contest) {
             res.json({
                 result: true,
@@ -171,11 +166,6 @@ router.get('/:contestId/novels/:novelId', async function (req, res, next) {
         return
     }
 
-    const contestQuery = {
-        text: 'SELECT * FROM contests where contest_id = $1',
-        values: [contestId]
-    }
-
     const novelQuery = {
         text: 'SELECT * FROM novels INNER JOIN contest_works ON novels.novel_id = contest_works.novel_id AND novels.novel_id = $1 AND contest_works.contest_id = $2',
         values: [contestId, novelId]
@@ -187,8 +177,7 @@ router.get('/:contestId/novels/:novelId', async function (req, res, next) {
     }
 
     try {
-        const contestRows = (await db.query(contestQuery)).rows
-        let contest = contestRows.length ? contestRows[0] : false
+        let contest = await dbContests.info(contestId);
         if (!contest) {
             res.status(404).json({
                 result: false,
@@ -233,6 +222,24 @@ router.get('/:contestId/novels/:novelId', async function (req, res, next) {
             message: 'server error'
         });
     }
+})
+
+router.get('/:contestId/novels/:novelId/chapters/:chapterId', async function (req, res, next) {
+    const contestId = req.params.contestId
+    const novelId = req.params.novelId
+    const chapterId = req.params.chapterId
+
+    if (!isFinite(contestId) || !isFinite(novelId) || !isFinite(chapterId)) {
+        // res.status(400);
+        res.status(400).json({
+            result: false,
+            message: 'bad requests'
+        })
+        return
+    }
+
+
+
 })
 
 // contests を作戝
