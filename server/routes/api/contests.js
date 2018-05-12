@@ -132,25 +132,26 @@ router.get('/:contestId', async function (req, res, next) {
         let novels = []
         // const novels = novel_res.rows;
         const contest = await dbContests.info(contestId);
+        if (!contest) {
+            res.status(404).json({
+                result: false,
+                message: 'the contest is not exist'
+            });
+            return
+        }
+
 
         if (moment(contest.startContestAt).isBefore(moment())) {
             novels = (await db.query(novels_query)).rows;
             novels = camel.jsonKeyToLowerCamel(novels)
         }
-        if (contest) {
-            res.json({
-                result: true,
-                message: 'here you are',
-                contest: camel.jsonKeyToLowerCamel(contest),
-                novels: novels,
-            });
-            return
-        } else {
-            res.status(404).json({
-                result: false,
-                message: 'the contest is not exist'
-            });
-        }
+        contest.novels = novels
+        res.json({
+            result: true,
+            message: 'here you are',
+            contest: camel.jsonKeyToLowerCamel(contest),
+        });
+        return
     } catch (err) {
         console.log(err.stack);
         res.status(500).json({

@@ -78,7 +78,7 @@ describe('/api/contests', function () {
                 .get(url)
                 .end((err, res) => {
                     expect(res).to.have.status(200);
-                    expect(res.body).to.have.all.keys('result', 'message', 'contest', 'novels');
+                    expect(res.body).to.have.all.keys('result', 'message', 'contest');
                     done();
                 });
         })
