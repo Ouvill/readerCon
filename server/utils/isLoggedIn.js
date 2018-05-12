@@ -22,7 +22,7 @@ module.exports = function (req, res, next) {
             );
         }
 
-        req.decoded = decoded;
+        req.authorized = decoded;
         next();
     });
 }
