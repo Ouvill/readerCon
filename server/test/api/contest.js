@@ -94,6 +94,39 @@ describe('/api/contests', function () {
         })
     })
 
+    describe('GET /api/v1/contests/:contestId/novels/:novelId', () => {
+        it('return status 400', (done) => {
+            let url = '/api/v1/contests/1/novels/hou'
+            chai.request(app)
+                .get(url)
+                .end((err, res) => {
+                    expect(res).to.have.status(400);
+                });
+            url = '/api/v1/contests/hoge/novels/hou'
+            chai.request(app)
+                .get(url)
+                .end((err, res) => {
+                    expect(res).to.have.status(400);
+                    done();
+                });
+        });
+
+        it('return status 200', (done) => {
+            const url = '/api/v1/contests/1/novels/1'
+            chai.request(app)
+                .get(url)
+                .end((err, res) => {
+                    expect(res).to.have.status(200);
+                    expect(res.body).to.have.all.keys('result', 'message', 'contest')
+                    expect(res.body.contest).to.include.keys('novel')
+                    expect(res.body.contest.novel).to.include.keys('title', 'overview', 'chapters')
+                    done();
+                });
+
+        })
+
+    })
+
     describe('POST /api/contests/create', function () {
         it('return status 400', function (done) {
             const url = '/api/v1/contests/create'
