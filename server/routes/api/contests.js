@@ -2,6 +2,7 @@ const express = require('express');
 const router = express.Router();
 const moment = require('moment');
 const db = require('../../utils/pgConnection');
+const isLoggedIn = require('../../utils/isLoggedIn');
 const camel = require('../../utils/camelConverter');
 const dbUsers = require('../../utils/db/users')
 const dbContests = require('../../utils/db/contests');
@@ -283,7 +284,8 @@ router.get('/:contestId/novels/:novelId/chapters/:chapterNum', async function (r
 })
 
 // contests を作戝
-router.post('/create', function (req, res, next) {
+router.post('/create', isLoggedIn, async function (req, res, next) {
+    const userId = req.authorized.userId
     const { title, overview, entryPeriod, startContestAt, contestPeriod } = req.body
     if (!title || !overview || !entryPeriod || !startContestAt || !contestPeriod) {
         res.statusCode = 400;
@@ -294,9 +296,21 @@ router.post('/create', function (req, res, next) {
         return;
     }
 
-    res.json({
-        result: true
-    })
+    try {
+        const newContest = await dbContests.create(userId, title, overview, entryPeriod, startContestAt, contestPeriod)
+        res.json({
+            result: true,
+            contest: newContest
+        })
+
+    } catch (err) {
+        console.error(err.stack)
+        res.status(500).json({
+            result: false,
+            message: 'server error'
+        })
+
+    }
 
 })
 

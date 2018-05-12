@@ -1,5 +1,5 @@
 const expect = require("chai").expect;
-const user = require('../../../utils/db/user')
+const user = require('../../../utils/db/users')
 
 describe('utils db/user', () => {
     describe('userInfo', () => {
