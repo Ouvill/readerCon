@@ -315,9 +315,68 @@ router.post('/create', isLoggedIn, async function (req, res, next) {
             result: false,
             message: 'server error'
         })
-
     }
 
+})
+
+router.post('/apply', isLoggedIn, async function (req, res, next) {
+    const userId = req.authorized.userId
+    const { contestId, novelId } = req.body;
+    try {
+        if (!isFinite(contestId) || !isFinite(novelId)) {
+            res.status(400).json({
+                result: false,
+                message: 'bad requests'
+            })
+            return
+        }
+
+        const novel = await dbNovels.info(novelId);
+        if (!novel) {
+            res.status(404).json({
+                result: false,
+                message: 'no novel'
+            });
+            return
+        }
+
+        const contest = await dbContests.info(contestId);
+        if (!contest) {
+            res.status(404).json({
+                result: false,
+                message: 'no contest'
+            });
+            return
+        }
+
+        if (userId != novel.authorId) {
+            res.status(403).json({
+                result: false,
+                message: 'the novel is not yours'
+            });
+            return
+        }
+
+        const result = await dbContests.apply(contestId, novelId);
+        if (!result) {
+            res.status(400).json({
+                result: false,
+                message: 'the novel already applied'
+            })
+        }
+
+        res.json({
+            result: true,
+            message: 'complete entry'
+        })
+
+    } catch (err) {
+        res.status(500).json({
+            result: false,
+            message: 'server error'
+        })
+
+    }
 })
 
 module.exports = router;
