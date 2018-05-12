@@ -1,5 +1,6 @@
 const db = require('../pgConnection');
 const camel = require('../camelConverter');
+const moment = require('moment');
 
 const contests = {
     info: async (contestId) => {
@@ -13,7 +14,24 @@ const contests = {
             return false
         }
         return camel.jsonKeyToLowerCamel(contest);
+    },
+
+    create: async (userId, title, overview, entryPeriod, startContestAt, contestPeriod) => {
+
+        const createdAt = moment().format('YYYY-MM-DD HH:mm:ss');
+        const query = {
+            text: 'INSERT INTO contests( owner_id,title, overview, entry_period, start_contest_at, contest_period, created_at) VALUES ( $1, $2, $3 ,$4 , $5, $6, $7) RETURNING *',
+            values: [userId, title, overview, entryPeriod, startContestAt, contestPeriod, createdAt]
+        }
+
+        try {
+            const { rows } = await db.query(query);
+            return camel.jsonKeyToLowerCamel(rows[0]);
+        } catch (err) {
+            throw (err);
+        }
     }
+
 }
 
 module.exports = contests
