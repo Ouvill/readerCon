@@ -182,7 +182,7 @@ router.get('/:contestId/novels/:novelId', async function (req, res, next) {
     }
 
     const chapterListQuery = {
-        text: 'SELECT * FROM chapters WHERE novel_id = $1 ORDER BY number ASC',
+        text: 'SELECT number, title, chapter_id , novel_id, access_count, accept_comment FROM chapters WHERE novel_id = $1 ORDER BY number ASC',
         values: [novelId]
     }
 
