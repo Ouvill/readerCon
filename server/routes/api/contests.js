@@ -5,6 +5,7 @@ const db = require('../../utils/pgConnection');
 const camel = require('../../utils/camelConverter');
 const user = require('../../utils/db/user')
 const dbContests = require('../../utils/db/contests');
+const dbNovels = require('../../utils/db/novels');
 
 /* GET constests listing. */
 router.get('/', async function (req, res, next) {
@@ -166,11 +167,6 @@ router.get('/:contestId/novels/:novelId', async function (req, res, next) {
         return
     }
 
-    const novelQuery = {
-        text: 'SELECT * FROM novels INNER JOIN contest_works ON novels.novel_id = contest_works.novel_id AND novels.novel_id = $1 AND contest_works.contest_id = $2',
-        values: [contestId, novelId]
-    }
-
     const chapterListQuery = {
         text: 'SELECT number, title, chapter_id , novel_id, access_count, accept_comment FROM chapters WHERE novel_id = $1 ORDER BY number ASC',
         values: [novelId]
@@ -186,8 +182,7 @@ router.get('/:contestId/novels/:novelId', async function (req, res, next) {
             return
         }
 
-        const novelRows = (await db.query(novelQuery)).rows
-        const novel = novelRows.length ? novelRows[0] : false
+        const novel = await dbNovels.contestsNovel(contestId, novelId);
         if (!novel) {
             res.status(404).json({
                 result: false,
