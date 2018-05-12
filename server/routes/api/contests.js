@@ -3,9 +3,10 @@ const router = express.Router();
 const moment = require('moment');
 const db = require('../../utils/pgConnection');
 const camel = require('../../utils/camelConverter');
-const user = require('../../utils/db/user')
+const dbUsers = require('../../utils/db/users')
 const dbContests = require('../../utils/db/contests');
 const dbNovels = require('../../utils/db/novels');
+const dbChapters = require('../../utils/db/chapters');
 
 /* GET constests listing. */
 router.get('/', async function (req, res, next) {
@@ -167,9 +168,64 @@ router.get('/:contestId/novels/:novelId', async function (req, res, next) {
         return
     }
 
-    const chapterListQuery = {
-        text: 'SELECT number, title, chapter_id , novel_id, access_count, accept_comment FROM chapters WHERE novel_id = $1 ORDER BY number ASC',
-        values: [novelId]
+    try {
+        const contest = await dbContests.info(contestId);
+        if (!contest) {
+            res.status(404).json({
+                result: false,
+                message: 'no contests'
+            });
+            return
+        }
+
+        const novel = await dbNovels.contestsNovel(contestId, novelId);
+        if (!novel) {
+            res.status(404).json({
+                result: false,
+                message: 'no novel'
+            });
+            return
+        }
+        const chapterList = await dbChapters.novelChapters(novelId);
+
+        contest.novel = novel;
+        novel.chapters = chapterList
+
+        let author = {}
+        if (moment(contest.contestPeriod).isAfter(moment())) {
+            delete contest.novel.authorId
+        } else {
+            author = await dbUsers.publicInfo(contest.novel.authorId);
+            novel.author = author
+        }
+
+        res.json({
+            result: true,
+            message: 'here you are',
+            contest: contest
+        })
+
+    } catch (err) {
+        console.log(err.stack);
+        res.status(500).json({
+            result: false,
+            message: 'server error'
+        });
+    }
+})
+
+router.get('/:contestId/novels/:novelId/chapters/:chapterNum', async function (req, res, next) {
+    const contestId = req.params.contestId
+    const novelId = req.params.novelId
+    const chapterNum = req.params.chapterNum
+
+    if (!isFinite(contestId) || !isFinite(novelId) || !isFinite(chapterNum)) {
+        // res.status(400);
+        res.status(400).json({
+            result: false,
+            message: 'bad requests'
+        })
+        return
     }
 
     try {
@@ -190,17 +246,25 @@ router.get('/:contestId/novels/:novelId', async function (req, res, next) {
             });
             return
         }
-        const chapterList = (await db.query(chapterListQuery)).rows
+        const chapterList = await dbChapters.novelChapters(novelId);
+        const chapter = await dbChapters.chapterContent(novelId, chapterNum);
+        if (!chapter) {
+            res.status(404).json({
+                result: false,
+                message: 'no chapter'
+            })
+            return
+        }
+        chapterList[chapterNum - 1] = chapter
 
         contest.novel = novel;
         novel.chapters = chapterList
-        contest = camel.jsonKeyToLowerCamel(contest)
 
         let author = {}
         if (moment(contest.contestPeriod).isAfter(moment())) {
             delete contest.novel.authorId
         } else {
-            author = await user.publicInfo(contest.novel.authorId);
+            author = await dbUsers.publicInfo(contest.novel.authorId);
             novel.author = author
         }
 
@@ -209,32 +273,13 @@ router.get('/:contestId/novels/:novelId', async function (req, res, next) {
             message: 'here you are',
             contest: contest
         })
-
     } catch (err) {
-        console.log(err.stack);
+        console.log(err.stack)
         res.status(500).json({
             result: false,
             message: 'server error'
-        });
-    }
-})
-
-router.get('/:contestId/novels/:novelId/chapters/:chapterId', async function (req, res, next) {
-    const contestId = req.params.contestId
-    const novelId = req.params.novelId
-    const chapterId = req.params.chapterId
-
-    if (!isFinite(contestId) || !isFinite(novelId) || !isFinite(chapterId)) {
-        // res.status(400);
-        res.status(400).json({
-            result: false,
-            message: 'bad requests'
         })
-        return
     }
-
-
-
 })
 
 // contests を作戝
