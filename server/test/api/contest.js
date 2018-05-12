@@ -120,6 +120,20 @@ describe('/api/contests', function () {
                     expect(res.body).to.have.all.keys('result', 'message', 'contest')
                     expect(res.body.contest).to.include.keys('novel')
                     expect(res.body.contest.novel).to.include.keys('title', 'overview', 'chapters')
+                    expect(res.body.contest.novel).to.not.include.keys('author');
+                    done();
+                });
+        })
+
+        it('return author', (done) => {
+            const url = '/api/v1/contests/3/novels/3'
+            chai.request(app)
+                .get(url)
+                .end((err, res) => {
+                    expect(res).to.have.status(200);
+                    expect(res.body).to.have.all.keys('result', 'message', 'contest')
+                    expect(res.body.contest).to.include.keys('novel')
+                    expect(res.body.contest.novel).to.include.keys('title', 'overview', 'chapters', 'author');
                     done();
                 });
 

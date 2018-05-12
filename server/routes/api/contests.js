@@ -3,6 +3,7 @@ const router = express.Router();
 const moment = require('moment');
 const db = require('../../utils/pgConnection');
 const camel = require('../../utils/camelConverter');
+const user = require('../../utils/db/user')
 
 /* GET constests listing. */
 router.get('/', async function (req, res, next) {
@@ -187,7 +188,7 @@ router.get('/:contestId/novels/:novelId', async function (req, res, next) {
 
     try {
         const contestRows = (await db.query(contestQuery)).rows
-        const contest = contestRows.length ? contestRows[0] : false
+        let contest = contestRows.length ? contestRows[0] : false
         if (!contest) {
             res.status(404).json({
                 result: false,
@@ -209,11 +210,20 @@ router.get('/:contestId/novels/:novelId', async function (req, res, next) {
 
         contest.novel = novel;
         novel.chapters = chapterList
+        contest = camel.jsonKeyToLowerCamel(contest)
+
+        let author = {}
+        if (moment(contest.contestPeriod).isAfter(moment())) {
+            delete contest.novel.authorId
+        } else {
+            author = await user.publicInfo(contest.novel.authorId);
+            novel.author = author
+        }
 
         res.json({
             result: true,
             message: 'here you are',
-            contest: camel.jsonKeyToLowerCamel(contest),
+            contest: contest
         })
 
     } catch (err) {
