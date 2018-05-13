@@ -13,7 +13,21 @@ const novels = {
             return false
         }
         return camel.jsonKeyToLowerCamel(novel);
+    },
+
+    info: async (novelId) => {
+        const query = {
+            text: 'SELECT * FROM novels WHERE novel_id = $1',
+            values: [novelId]
+        }
+        const rows = (await db.query(query)).rows
+        let novel = rows.length ? rows[0] : false
+        if (!novel) {
+            return false
+        }
+        return camel.jsonKeyToLowerCamel(novel);
     }
+
 }
 
 module.exports = novels

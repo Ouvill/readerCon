@@ -173,8 +173,8 @@ describe('/api/contests', function () {
             it('return status 200', function (done) {
                 const url = '/api/v1/contests/create'
                 const body = {
-                    title: "タイトル",
-                    overview: 'あらすじ',
+                    title: "コンテストタイトル",
+                    overview: 'コンテスト概要',
                     entryPeriod: '2018-05-12 00:00:00',
                     startContestAt: '2018-05-12 00:00:00',
                     contestPeriod: '2018-05-13 00:00:00',
@@ -190,4 +190,39 @@ describe('/api/contests', function () {
             });
         });
     });
+
+    describe('POST /api/v1/contests/apply', function () {
+        describe('authorized', function () {
+            let token = {}
+            before(function () {
+                const userId = 45
+                token = jwt.sign({
+                    userId,
+                    exp: Math.floor(Date.now() / 1000) + 60 * 60 * 24 * 7
+                }, process.env.JWT_KEY)
+            });
+
+            it('', function (done) {
+                const url = '/api/v1/contests/apply'
+                const body = {
+                    token: token,
+                    contestId: 1,
+                    novelId: 1
+                }
+                chai.request(app).post(url)
+                    .send(body)
+                    .end(function (err, res) {
+                        console.log(res.body)
+                        expect(res).to.have.status(400);
+                        done();
+                    });
+
+
+            })
+
+
+        })
+
+    })
+
 });

@@ -22,7 +22,7 @@ const chapters = {
             return false
         }
         return camel.jsonKeyToLowerCamel(chapter)
-    }
+    },
 }
 
 module.exports = chapters

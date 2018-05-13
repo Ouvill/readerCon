@@ -30,8 +30,29 @@ const contests = {
         } catch (err) {
             throw (err);
         }
-    }
+    },
 
+    apply: async (contestId, novelId) => {
+        const selectQuery = {
+            text: 'SELECT * FROM contest_works WHERE contest_id = $1 AND novel_id = $2',
+            values: [contestId, novelId]
+        }
+
+        const insertQuery = {
+            text: 'INSERT INTO contest_works ( contest_id, novel_id ) VALUES ( $1, $2) RETURNING *',
+            values: [contestId, novelId]
+        }
+        try {
+            const selectRows = (await db.query(selectQuery)).rows
+            if (selectRows.length) {
+                return false
+            }
+            const { rows } = await db.query(insertQuery);
+            return camel.jsonKeyToLowerCamel(rows[0]);
+        } catch (err) {
+            throw (err)
+        }
+    }
 }
 
 module.exports = contests
