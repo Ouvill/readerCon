@@ -16,7 +16,7 @@ export const tryLogin = (email, password) => {
         };
         const path = getState().previousPath
         dispatch(fetchData.request())
-        fetch('/api/login', {
+        fetch('/api/v1/login', {
             method: 'POST',
             headers,
             body: JSON.stringify(json),

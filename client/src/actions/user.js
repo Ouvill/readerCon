@@ -36,7 +36,7 @@ export function fetchUserInfo() {
             'Content-Type': 'application/json'
         };
 
-        return fetch('/api/userInfo', { method, body, headers })
+        return fetch('/api/v1/userInfo', { method, body, headers })
             .then(response => response.json())
             .then(json => {
                 console.log(json);
@@ -85,7 +85,7 @@ export const postTentativeUserData = () => {
             'Accept': 'application/json',
             'Content-Type': 'application/json'
         };
-        return fetch('/api/userRegist', { method, headers, body })
+        return fetch('/api/v1/userRegist', { method, headers, body })
             .then(response => response.json())
             .then(json => {
                 dispatch(recieveRegistUserResult(json, dispatch));

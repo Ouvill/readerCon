@@ -18,7 +18,7 @@ export const tryRegist = (userName, displayName, email, password) => {
             'Content-Type': 'application/json'
         }
 
-        fetch('/api/userRegist', { method, headers, body }).then(response => response.json()).then(json => {
+        fetch('/api/v1/userRegist', { method, headers, body }).then(response => response.json()).then(json => {
             if (json.result) {
                 dispatch(push('/login'));
                 dispatch(message.setMessage('ユーザー登録が完了しました。ログインしてください。'));
