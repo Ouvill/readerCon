@@ -2,7 +2,7 @@ const express = require('express');
 const router = express.Router();
 const moment = require('moment');
 const db = require('../../utils/pgConnection');
-const isLoggedIn = require('../../utils/isLoggedIn');
+const authorization = require('../authorization');
 const camel = require('../../utils/camelConverter');
 const dbUsers = require('../../utils/db/users')
 const dbContests = require('../../utils/db/contests');
@@ -290,8 +290,8 @@ router.get('/:contestId/novels/:novelId/chapters/:chapterNum', async function (r
 })
 
 // contests を作戝
-router.post('/create', isLoggedIn, async function (req, res, next) {
-    const userId = req.authorized.userId
+router.post('/create', authorization, async function (req, res, next) {
+    const userId = req.auth.userId
     const { title, overview, entryPeriod, startContestAt, contestPeriod } = req.body
     if (!title || !overview || !entryPeriod || !startContestAt || !contestPeriod) {
         res.statusCode = 400;
@@ -319,8 +319,8 @@ router.post('/create', isLoggedIn, async function (req, res, next) {
 
 })
 
-router.post('/apply', isLoggedIn, async function (req, res, next) {
-    const userId = req.authorized.userId
+router.post('/apply', authorization, async function (req, res, next) {
+    const userId = req.auth.userId
     const { contestId, novelId } = req.body;
     try {
         if (!isFinite(contestId) || !isFinite(novelId)) {
