@@ -36,6 +36,14 @@ class Contest extends React.Component {
         fetchContest(contestId);
     }
 
+    addContestsPath = (novels) => {
+        const { contestId } = this.props.match.params;
+        return novels.map((novel) => {
+            novel.path = '/contests/' + contestId + '/novels/' + novel.novelId
+            return novel
+        })
+    }
+
     render() {
         const { classes, match, contest } = this.props;
         const { contestId } = match.params;
@@ -86,7 +94,7 @@ class Contest extends React.Component {
                 }
                 {
                     value === 1 &&
-                    <NovelList novels={contest.novels} />
+                    <NovelList novels={this.addContestsPath(contest.novels)} />
                 }
             </div>
 

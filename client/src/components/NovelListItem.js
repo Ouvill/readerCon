@@ -7,15 +7,14 @@ import Divider from 'material-ui/Divider';
 const styles = theme => ({
     root: {
         textAlign: 'center'
-
     }
 
 });
 
-const NovelItem = ({ novelId, title, overview, classes }) => {
+const NovelItem = ({ novelId, title, overview, classes, path }) => {
     return (
         <div>
-            <ListItem className={classes.root} button component={NavLink} to={'/novels/' + novelId} >
+            <ListItem className={classes.root} button component={NavLink} to={path ? path : '/novels/' + novelId}>
                 <ListItemText primary={title} secondary={overview} />
             </ListItem>
             <Divider light />
