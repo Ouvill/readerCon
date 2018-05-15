@@ -15,7 +15,7 @@ import MyPage from './MyPage';
 import route from '../data/routeList'
 import CreateContest from './CreateContest';
 import CreateNovel from './CreateNovel';
-import Contest from './Contest';
+import Contest from '../containers/Contest';
 import ChapterViewer from '../containers/ChapterViewer';
 import Novel from '../containers/Novel'
 import ApplyContest from './ApplyContest';
