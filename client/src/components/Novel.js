@@ -33,24 +33,35 @@ class Novel extends Component {
         return viewText;
     }
 
+    addChapterPath = (chapters, novelId, contestId) => {
+        if (typeof (contestId) === 'undefined' || typeof (novelId) === 'undefined') {
+            return chapters
+        }
+
+        return chapters.map((chapter) => {
+            chapter.path = '/contests/' + contestId + '/novels/' + novelId + '/chapters/' + chapter.chapterNum
+            return chapter
+        })
+    }
+
     render() {
         const { classes, novel, favorite, next } = this.props
 
         return (
             <Grid container className={classes.root} justify='center'>
                 <Grid item xs={12} sm={8} lg={6} >
-                       <Typography variant="headline" component="h3">
-                            {novel.title}
-                        </Typography>
-                        {novel.author &&
-                            <Typography variant="subheading" component="h3" align='right'>
-                                作者：{novel.author}
-                            </Typography>}
-                        <Typography>
-                            {this.brText(novel.overview)}
-                        </Typography>
+                    <Typography variant="headline" component="h3">
+                        {novel.title}
+                    </Typography>
+                    {novel.author &&
+                        <Typography variant="subheading" component="h3" align='right'>
+                            作者：{novel.author}
+                        </Typography>}
+                    <Typography>
+                        {this.brText(novel.overview)}
+                    </Typography>
 
-                        <ChapterList novelId={novel.novelId} chapters={novel.chapters} />
+                    <ChapterList novelId={novel.novelId} chapters={this.addChapterPath(novel.chapters)} />
                     <Grid container>
                         <Grid item xs={6}>
                             <FormControlLabel control={
