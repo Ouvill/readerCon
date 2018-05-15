@@ -12,6 +12,7 @@ var RedisStore = require('connect-redis')(session);
 var passport = require('passport');
 var twitterStrategy = require('passport-twitter').Strategy;
 
+const authentication = require('./routes/authentication');
 const authorization = require('./routes/authorization');
 
 
@@ -78,6 +79,7 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
+app.use(authentication);
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
 app.use('/api/v1/twitter', twitter);
