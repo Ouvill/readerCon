@@ -9,6 +9,7 @@ import { Grid } from 'material-ui';
 import Card, { CardActions, CardContent } from 'material-ui/Card';
 import Paper from 'material-ui/Paper';
 import store from '../demoStore'
+import moment from 'moment'
 
 
 const styles = (theme) => ({
@@ -29,20 +30,30 @@ class Contest extends React.Component {
         this.setState({ value });
     };
 
+    componentWillMount = () => {
+        const { contestId } = this.props.match.params;
+        const { fetchContest } = this.props
+        fetchContest(contestId);
+    }
+
+    addContestsPath = (novels) => {
+        const { contestId } = this.props.match.params;
+        return novels.map((novel) => {
+            novel.path = '/contests/' + contestId + '/novels/' + novel.novelId
+            return novel
+        })
+    }
 
     render() {
-        const { classes, match } = this.props;
+        const { classes, match, contest } = this.props;
         const { contestId } = match.params;
         const { value } = this.state;
-        const { selectContest } = store
-        const contest = store.contests[selectContest]
 
         return (
             <div className={classes.root}>
                 <Typography variant='headline'>
-                    企画1
+                    {contest.title}
                 </Typography>
-
 
                 <Tabs value={value} onChange={this.handleChange}>
                     <Tab label="企画詳細" />
@@ -53,28 +64,29 @@ class Contest extends React.Component {
                     <div className={classes.detail}>
                         <Grid container justify='center'>
                             <Grid item xs={12} sm={8} lg={6}>
-                            <Card className={classes.root}>
-                                <CardContent>
-                                    <Typography variant='subheading'>
-                                        企画詳細
-                                    </Typography>
-                                    <Typography >
-                                        普段の人気なんて関係なくｶｶｯﾃｺｲ!щ(ﾟДﾟщ)よ。
-                                    </Typography>
-                                    <Typography variant='subheading'>
-                                        投稿受付期間：
-                                    </Typography>
-                                    <Typography variant='subheading'>
-                                        作品公開日：
-                                    </Typography>
-                                    <Typography variant='subheading'>
-                                        投票受付期間：
-                                    </Typography>
-                                </CardContent>
-                                <CardActions>
-                                    <Button color='primary' variant="raised" component={NavLink} to={'/applyContest/'+contestId}>コンテストに参加する</Button>
-                                </CardActions>
-                            </Card>
+                                <Card className={classes.root}>
+                                    <CardContent>
+                                        <Typography variant='subheading'>
+                                            企画詳細
+
+                                        </Typography>
+                                        <Typography >
+                                            {contest.overview}
+                                        </Typography>
+                                        <Typography variant='subheading'>
+                                            投稿受付期間：{moment(contest.entryPeriod).lang('ja').format('YYYY年MM月DD日 HH時mm分ss秒')}
+                                        </Typography>
+                                        <Typography variant='subheading'>
+                                            作品公開日　：{moment(contest.startContestAt).lang('ja').format('YYYY年MM月DD日 HH時mm分ss秒')}
+                                        </Typography>
+                                        <Typography variant='subheading'>
+                                            投票受付期間：{moment(contest.contestPeriod).lang('ja').format('YYYY年MM月DD日 HH時mm分ss秒')}
+                                        </Typography>
+                                    </CardContent>
+                                    <CardActions>
+                                        <Button color='primary' variant="raised" component={NavLink} to={'/applyContest/' + contestId}>コンテストに参加する</Button>
+                                    </CardActions>
+                                </Card>
                             </Grid>
                         </Grid>
                     </div>
@@ -82,7 +94,7 @@ class Contest extends React.Component {
                 }
                 {
                     value === 1 &&
-                    <NovelList novels={contest.novels} />
+                    <NovelList novels={this.addContestsPath(contest.novels)} />
                 }
             </div>
 
