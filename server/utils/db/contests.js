@@ -34,8 +34,8 @@ const contests = {
 
     apply: async (contestId, novelId) => {
         const selectQuery = {
-            text: 'SELECT * FROM contest_works WHERE contest_id = $1 AND novel_id = $2',
-            values: [contestId, novelId]
+            text: 'SELECT * FROM contest_works WHERE novel_id = $1',
+            values: [novelId]
         }
 
         const insertQuery = {
