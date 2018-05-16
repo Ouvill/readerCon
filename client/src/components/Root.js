@@ -10,7 +10,7 @@ import Login from '../containers/Login';
 import Navigations from '../containers/Navigation';
 import { withStyles } from 'material-ui';
 import ApplicationBar from '../containers/ApplicationBar';
-import ContestList from './ContestList';
+import ContestList from '../containers/ContestList';
 import MyPage from './MyPage';
 import route from '../data/routeList'
 import CreateContest from './CreateContest';
