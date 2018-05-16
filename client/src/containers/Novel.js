@@ -1,19 +1,19 @@
 import { connect } from 'react-redux'
 import NovelComponent from '../components/Novel'
+import * as Actions from '../actions/novel'
 
 import store from '../demoStore'
 
 
 const mapStateToProps = (state, ownProps) => {
-    const chapter = store.selectChapter
     return {
-        novel: store.selectNovel,
+        novel: state.novel,
     }
 }
 
 const mapDispatchToProps = dispatch => ({
-    next: () => { }
-
+    next: () => { },
+    fetchNovel: (novelId) => { dispatch(Actions.fetchNovel(novelId)) }
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(NovelComponent)

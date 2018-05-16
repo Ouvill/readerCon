@@ -4,7 +4,7 @@ const camel = require('../camelConverter');
 const chapters = {
     novelChapters: async (novelId) => {
         const query = {
-            text: 'SELECT number, title, chapter_id , novel_id, access_count, accept_comment FROM chapters WHERE novel_id = $1 ORDER BY number ASC',
+            text: 'SELECT chapter_num, title, chapter_id , novel_id, access_count, accept_comment FROM chapters WHERE novel_id = $1 ORDER BY chapter_num ASC',
             values: [novelId]
         }
         const { rows } = await db.query(query)
@@ -13,7 +13,7 @@ const chapters = {
 
     chapterContent: async (novelId, chapterNum) => {
         const query = {
-            text: 'SELECT * FROM chapters WHERE novel_id = $1 AND number = $2',
+            text: 'SELECT * FROM chapters WHERE novel_id = $1 AND chapter_num = $2',
             values: [novelId, chapterNum]
         }
         const { rows } = await db.query(query)

@@ -12,11 +12,11 @@ const styles = theme => ({
 
 });
 
-const ChapterListItem = ({ novelId, chapterId, chapterNum, title, classes }) => {
+const ChapterListItem = ({ novelId, chapterId, chapterNum, title, classes, path }) => {
 
     return (
         <div>
-            <ListItem className={classes.root} button component={NavLink} to={'/novels/' + novelId + '/chapters/' + chapterNum} >
+            <ListItem className={classes.root} button component={NavLink} to={path ? path : '/novels/' + novelId + '/chapters/' + chapterNum} >
                 <ListItemText primary={title} />
             </ListItem>
             <Divider light />
