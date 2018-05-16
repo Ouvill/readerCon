@@ -25,6 +25,7 @@ const login = require('./routes/api/login');
 const logout = require('./routes/api/logout');
 const contests = require('./routes/api/contests');
 const novels = require('./routes/api/novels')
+// const chapters = require('./routes/api/chapters');
 
 //Twitter
 passport.serializeUser(function (user, done) {
@@ -90,6 +91,7 @@ app.use('/api/v1/login', login);
 app.use('/api/v1/logout', logout);
 app.use('/api/v1/contests', contests);
 app.use('/api/v1/novels', novels);
+// app.use('/api/v1/novels/:novelId/chapters/', chapters)
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {

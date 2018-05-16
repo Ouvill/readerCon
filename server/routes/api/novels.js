@@ -4,6 +4,7 @@ const moment = require('moment')
 const dbNovel = require('../../utils/db/novels')
 const dbUsers = require('../../utils/db/users')
 const dbChapters = require('../../utils/db/chapters');
+const chapters = require('./chapters')
 
 let novel = {};
 /* GET users listing. */
@@ -43,7 +44,7 @@ const isNovelPublic = async (req, res, next) => {
     try {
         const novelId = req.params.novelId;
         const userId = req.auth.userId
-        if (!novel.public && moment(novel.startContestAt).isAfter(moment() && novel.authorId != userId)) {
+        if ((!novel.public && moment(novel.startContestAt).isAfter(moment())) && userId != novel.authorId) {
             res.status(403).json({
                 result: false,
                 message: 'this novel is not publiced',
@@ -80,6 +81,15 @@ router.get('/:novelId',
             novel: novel
         })
     });
+
+router.get('/:novelId/chapters/:chapterNum',
+    requestNovelIdCheck,
+    existNovel,
+    isNovelPublic,
+    chapters.reqChapterIdCheck,
+    chapters.existChapter,
+    chapters.sendChapter
+)
 
 module.exports = router;
 
