@@ -8,6 +8,7 @@ import Button from 'material-ui/Button';
 import Tabs, { Tab } from 'material-ui/Tabs';
 import Icon from 'material-ui/Icon';
 import Card, { CardActions, CardContent, CardMedia } from 'material-ui/Card';
+import ContestListItem from './ContestListItem';
 
 const styles = (theme) => ({
     root: {
@@ -40,16 +41,16 @@ class ContestList extends Component {
 
     handleChange = (event, value) => {
         this.setState({ value });
+        this.filterContests(value)
     };
 
-    filterContests() {
+    filterContests(value) {
         const {
             fetchEntryAcceptingContestList,
             fetchVoteAcceptingContestList,
             fetchPastContestList
         } = this.props
 
-        const value = this.state.value
         if (value == 0) {
             fetchVoteAcceptingContestList()
         } else if (value == 1) {
@@ -60,15 +61,15 @@ class ContestList extends Component {
     }
 
     componentWillMount() {
-        this.filterContests()
+        this.filterContests(0)
     }
 
     componentDidUpdate() {
-        this.filterContests()
+        // this.filterContests()
     }
 
     render() {
-        const { classes } = this.props;
+        const { classes, contests } = this.props;
         const { value } = this.state;
 
         return (
@@ -80,42 +81,13 @@ class ContestList extends Component {
                 </Tabs>
 
                 <Grid container className={classes.container} spacing={16}>
-                    <Grid item xs={12} sm={6} component={NavLink} to='/contests/1'>
-                        <Card>
-                            <CardContent>
-                                <Typography variant="headline" component="h3">
-                                    企画1
-                        </Typography>
-                                <Typography component="p">
-                                    匿名小説コンテストって面白いよねっということでソレ専用のサイトを用意しだしているあたり馬鹿だなぁって思ってしまう。
-                                                システムの完成はまだまだ先です
-                        </Typography>
-                            </CardContent>
-                        </Card>
-                    </Grid>
-                    <Grid item xs={12} sm={6}>
-                        <Card>
-                            <CardContent>
-                                企画1
-                                </CardContent>
-                        </Card>
-                    </Grid>
-                    <Grid item xs={12} sm={6}>
-                        <Card>
-                            <CardContent>
+                    {contests.map(contest => (
+                        <ContestListItem key={contest.contestId} {...contest} />
+                    ))
 
-                                企画1
-                                                                </CardContent>
-                        </Card>
+                    }
 
-                    </Grid>
-                    <Grid item xs={12} sm={6}>
-                        <Card>
-                            <CardContent>
-                                企画1
-                                                                                                            </CardContent>
-                        </Card>
-                    </Grid>
+
                 </Grid>
                 <Button variant="fab" color="secondary" aria-label="edit" className={classes.button} component={NavLink} to='/create/contest'>
                     <Icon>edit_icon</Icon>

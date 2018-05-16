@@ -4,7 +4,7 @@ import * as Actions from '../actions/contests'
 
 
 const mapStateToProps = (state, ownProps) => ({
-    contest: state.contest
+    contests: state.contests
 })
 
 const mapDispatchToProps = dispatch => ({
