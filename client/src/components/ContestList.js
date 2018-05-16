@@ -41,6 +41,32 @@ class ContestList extends Component {
     handleChange = (event, value) => {
         this.setState({ value });
     };
+
+    filterContests() {
+        const {
+            fetchEntryAcceptingContestList,
+            fetchVoteAcceptingContestList,
+            fetchPastContestList
+        } = this.props
+
+        const value = this.state.value
+        if (value == 0) {
+            fetchVoteAcceptingContestList()
+        } else if (value == 1) {
+            fetchEntryAcceptingContestList()
+        } else if (value == 2) {
+            fetchPastContestList()
+        }
+    }
+
+    componentWillMount() {
+        this.filterContests()
+    }
+
+    componentDidUpdate() {
+        this.filterContests()
+    }
+
     render() {
         const { classes } = this.props;
         const { value } = this.state;
