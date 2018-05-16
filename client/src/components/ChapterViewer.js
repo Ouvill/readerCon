@@ -9,6 +9,7 @@ import FavoriteBorder from '@material-ui/icons/FavoriteBorder';
 import { FormControlLabel } from 'material-ui/Form';
 import Button from 'material-ui/Button';
 
+
 const styles = (theme) => ({
     root: {
         flexGrow: 1,
@@ -35,6 +36,17 @@ const styles = (theme) => ({
 })
 
 class ChapterViewer extends Component {
+
+    componentWillMount() {
+        const { fetchChapter, fetchNovel, match } = this.props
+        const { novelId, chapterNum } = match.params
+        fetchNovel(novelId);
+        fetchChapter(novelId, chapterNum)
+
+
+    }
+
+
     replaceText(text) {
         let viewText = text.replace(/\r\n|\n|\r/g, "<br>");
         // viewText = text.replace(/[ ]/, '　');
@@ -42,7 +54,7 @@ class ChapterViewer extends Component {
     }
 
     render() {
-        const { classes, chapter, favorite, next, match } = this.props
+        const { classes, novel, chapter, next, match } = this.props
         const { novelId, chapterNum } = match.params
 
         return (
@@ -51,17 +63,15 @@ class ChapterViewer extends Component {
                     <div className={classes.viewer}>
 
                         <Typography variant="headline" component="h3">
-                            {novelId},
-                        {chapterNum}
                             {chapter.title}
                         </Typography>
-                        {chapter.author &&
+                        {novel.author &&
                             <Typography variant="subheading" component="h3" align='right'>
-                                {chapter.author}
+                                作者：{novel.author.displayName}
                             </Typography>}
                         <Typography
                         >
-                            {this.replaceText(chapter.text)}
+                            {this.replaceText(chapter.content)}
                         </Typography>
 
                         <Grid container>

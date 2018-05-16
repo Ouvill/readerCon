@@ -12,7 +12,6 @@ const novel = (state = {
         default:
             return state
     }
-
 }
 
 export default novel
