@@ -3,6 +3,7 @@ const router = express.Router();
 const moment = require('moment')
 const dbNovel = require('../../utils/db/novels')
 const dbUsers = require('../../utils/db/users')
+const dbChapters = require('../../utils/db/chapters');
 
 /* GET users listing. */
 router.get('/:novelId', async function (req, res, next) {
@@ -28,8 +29,10 @@ router.get('/:novelId', async function (req, res, next) {
     }
 
     if (novel.authorId == userId) {
-        author = await dbUsers.publicInfo(novel.authorId);
+        const author = await dbUsers.publicInfo(novel.authorId);
         novel.author = author
+        const chapterList = await dbChapters.novelChapters(novelId);
+        novel.chapters = chapterList
         res.json({
             result: true,
             message: 'here you are',
@@ -48,11 +51,13 @@ router.get('/:novelId', async function (req, res, next) {
     }
 
     if (novel.public || moment(novel.contestPeriod).isBefore(moment())) {
-        author = await dbUsers.publicInfo(novel.authorId);
+        const author = await dbUsers.publicInfo(novel.authorId);
         novel.author = author
     } else {
         delete novel.authorId
     }
+    const chapterList = await dbChapters.novelChapters(novelId);
+    novel.chapters = chapterList
 
     res.json({
         result: true,
