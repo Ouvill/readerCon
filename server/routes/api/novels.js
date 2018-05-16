@@ -6,6 +6,14 @@ const dbUsers = require('../../utils/db/users')
 const dbChapters = require('../../utils/db/chapters');
 
 /* GET users listing. */
+const resNoNovel = (res) => {
+    res.status(404).json({
+        result: false,
+        message: 'no novel',
+        messageJa: '小説が存在しません'
+    });
+}
+
 router.get('/:novelId', async function (req, res, next) {
     const novelId = req.params.novelId;
     const userId = req.auth.userId
@@ -20,28 +28,11 @@ router.get('/:novelId', async function (req, res, next) {
 
     const novel = await dbNovel.infoWithContests(novelId);
     if (!novel) {
-        res.status(404).json({
-            result: false,
-            message: 'no novel',
-            messageJa: '小説が存在しません'
-        });
+        resNoNovel(res);
         return
     }
 
-    if (novel.authorId == userId) {
-        const author = await dbUsers.publicInfo(novel.authorId);
-        novel.author = author
-        const chapterList = await dbChapters.novelChapters(novelId);
-        novel.chapters = chapterList
-        res.json({
-            result: true,
-            message: 'here you are',
-            novel: novel
-        })
-        return
-    }
-
-    if (!novel.public && moment(novel.startContestAt).isAfter(moment())) {
+    if (!novel.public && moment(novel.startContestAt).isAfter(moment() && novel.authorId != userId)) {
         res.status(403).json({
             result: false,
             message: 'this novel is not publiced',
@@ -50,7 +41,7 @@ router.get('/:novelId', async function (req, res, next) {
         return
     }
 
-    if (novel.public || moment(novel.contestPeriod).isBefore(moment())) {
+    if (novel.public || moment(novel.contestPeriod).isBefore(moment()) || novel.authorId == userId) {
         const author = await dbUsers.publicInfo(novel.authorId);
         novel.author = author
     } else {
