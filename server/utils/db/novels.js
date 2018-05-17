@@ -30,7 +30,7 @@ const novels = {
 
     infoWithContests: async (novelId) => {
         const query = {
-            text: 'SELECT * FROM (SELECT * FROM novels WHERE novel_id = $1 ) AS novels LEFT OUTER JOIN contest_works ON novels.novel_id = contest_works.novel_id LEFT OUTER JOIN contests ON contest_works.contest_id = contests.contest_id',
+            text: 'SELECT novels.* ,contests.contest_id, contests.title AS contest_title , contests.overview AS contests_overview, contests.entry_period, contests.start_contest_at , contests.contest_period FROM (SELECT * FROM novels WHERE novel_id = $1 ) AS novels LEFT OUTER JOIN contest_works ON novels.novel_id = contest_works.novel_id LEFT OUTER JOIN contests ON contest_works.contest_id = contests.contest_id',
             values: [novelId]
         }
         const { rows } = await db.query(query);
