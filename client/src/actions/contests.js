@@ -14,16 +14,9 @@ export const FILTER = {
 
 const fetchContestList = (filter) => {
     return (dispatch, getState) => {
-        dispatch(fetchData.request())
-        fetch('/api/v1/contests/' + filter).then(response => response.json()).then(json => {
-            dispatch(recieveContestList(json));
-            console.log(json)
-        }).catch(err => {
-            console.log(err.stack);
-            dispatch(message.setMessage('アクセスできませんでした'))
-        }).finally(() => {
-            dispatch(fetchData.recieve())
-        })
+        dispatch(
+            fetchData.fetchApiAction('/api/v1/contests/' + filter, fetchData.GET_METHOD, {}, recieveContestList)
+        )
     }
 }
 
@@ -55,16 +48,7 @@ const recieveContestList = (json) => {
 
 export const fetchContest = (contestId) => {
     return (dispatch, getState) => {
-        dispatch(fetchData.request())
-        fetch('/api/v1/contests/' + contestId).then(response => response.json()).then(json => {
-            dispatch(recieveContest(json));
-            console.log(json)
-        }).catch(err => {
-            console.log(err.stack);
-            dispatch(message.setMessage('アクセスできませんでした'))
-        }).finally(() => {
-            dispatch(fetchData.recieve())
-        })
+        dispatch(fetchData.fetchApiAction('/api/v1/contests/' + contestId, fetchData.GET_METHOD, {}, recieveContest))
     }
 }
 
