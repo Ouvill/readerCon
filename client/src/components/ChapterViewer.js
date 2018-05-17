@@ -8,6 +8,7 @@ import Favorite from '@material-ui/icons/Favorite';
 import FavoriteBorder from '@material-ui/icons/FavoriteBorder';
 import { FormControlLabel } from 'material-ui/Form';
 import Button from 'material-ui/Button';
+import ParagraphText from './ParagraphText';
 
 
 const styles = (theme) => ({
@@ -46,13 +47,6 @@ class ChapterViewer extends Component {
 
     }
 
-
-    replaceText(text) {
-        let viewText = text.replace(/\r\n|\n|\r/g, "<br>");
-        // viewText = text.replace(/[ ]/, '　');
-        return viewText;
-    }
-
     render() {
         const { classes, novel, chapter, next, match } = this.props
         const { novelId, chapterNum } = match.params
@@ -63,6 +57,7 @@ class ChapterViewer extends Component {
                     <div className={classes.viewer}>
 
                         <Typography variant="headline" component="h3">
+
                             {chapter.title}
                         </Typography>
                         {novel.author &&
@@ -71,7 +66,7 @@ class ChapterViewer extends Component {
                             </Typography>}
                         <Typography
                         >
-                            {this.replaceText(chapter.content)}
+                            <ParagraphText text={chapter.content} />
                         </Typography>
 
                         <Grid container>
