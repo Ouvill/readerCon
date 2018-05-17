@@ -1,4 +1,5 @@
 import * as message from './message'
+import querystring from 'querystring'
 
 export const REQUEST = 'REQUEST'
 export const RECIEVE = 'RECIEVE'
@@ -16,13 +17,21 @@ export const recieve = () => {
     }
 }
 
-
-const StatusCodeError = class extends Error { }
-StatusCodeError.prototype.name = 'StatusCodeError'
+function StatusCodeError(message) {
+    this.message = message;
+    var last_part = new Error().stack.match(/[^\s]+$/);
+    this.stack = `${this.name} at ${last_part}`;
+}
+Object.setPrototypeOf(StatusCodeError, Error);
+StatusCodeError.prototype = Object.create(Error.prototype);
+StatusCodeError.prototype.name = "CustomError";
+StatusCodeError.prototype.message = "";
+StatusCodeError.prototype.constructor = StatusCodeError;
 
 const statusCheck = (response) => {
+    console.log(response);
     if (!response.ok) {
-        response.json().then((err) => {
+        return response.json().then((err) => {
             if (typeof (err.messageJa) !== 'undefined') {
                 throw new StatusCodeError(err.messageJa)
             }
@@ -31,18 +40,18 @@ const statusCheck = (response) => {
             }
         })
     } else {
-        return response.json()
+        return response
     }
 }
 
-const fetchGetWithToken = (url, token , data) => {
+const fetchGetWithToken = (url, token, data) => {
     const headers = {
         'x-access-token': token,
         mode: 'cors',
         credentials: 'include'
     }
 
-
+    url += '?' + querystring.stringify(data)
 
     return fetch(url, {
         headers,
@@ -66,10 +75,14 @@ const fetchPostWithToken = (url, token, data) => {
     })
 }
 
+export const GET_METHOD = 'GET'
+export const POST_METHOD = 'POST'
+export const PUT_METHOD = 'PUT'
+export const DELETE_METHOD = 'DELETE'
 
 const fetchWithToken = (url, method, token, data) => {
-    if (method == 'GET') return fetchGetWithToken(url, token)
-    if (method == 'POST') return fetchPostWithToken(url, token , data)
+    if (method === 'GET') return fetchGetWithToken(url, token)
+    if (method === 'POST') return fetchPostWithToken(url, token, data)
 }
 
 export const fetchApiAction = (url, method, data, callbackAction, option) => {
@@ -77,23 +90,22 @@ export const fetchApiAction = (url, method, data, callbackAction, option) => {
         dispatch(request());
         fetchWithToken(url, method, data)
             .then(statusCheck)
-            .then(response => {
-                response.json()
-            })
+            .then(response => response.json())
             .then(json => {
                 if (json.result) {
                     dispatch(callbackAction(json, option));
                 } else {
                     if (typeof (json.messageJa !== 'undefined')) {
                         dispatch(message.setMessage(json.messageJa))
-                    } else if (typeof (json.messageJa !== 'undefined')) {
+                    } else if (typeof (json.message !== 'undefined')) {
                         dispatch(message.setMessage(json.message))
                     } else {
                         dispatch(message.setMessage('サーバーにアクセスできませんでした'))
                     }
                 }
-            }).catch(err => {
-                console.log(err.stack);
+            })
+            .catch(err => {
+                console.log(err instanceof StatusCodeError);
                 if (err instanceof StatusCodeError) {
                     dispatch(message.setMessage(err.message))
                 } else {
