@@ -9,6 +9,7 @@ import FavoriteBorder from '@material-ui/icons/FavoriteBorder';
 import { FormControlLabel } from 'material-ui/Form';
 import Button from 'material-ui/Button';
 import ChapterList from './ChapterList'
+import ParagraphText from './ParagraphText';
 
 const styles = (theme) => ({
     root: {
@@ -27,12 +28,6 @@ const styles = (theme) => ({
 })
 
 class Novel extends Component {
-    brText(text) {
-        let viewText = text.replace(/\r\n|\n|\r/g, "<br>");
-        // viewText = text.replace(/[ ]/, '　');
-        return viewText;
-    }
-
     componentWillMount = () => {
         const { novelId } = this.props.match.params
         const { fetchNovel } = this.props
@@ -68,7 +63,7 @@ class Novel extends Component {
                         </Typography>
                     }
                     <Typography>
-                        {this.brText(novel.overview)}
+                        <ParagraphText text={novel.overview} />
                     </Typography>
 
                     {novel.chapters.length ?
