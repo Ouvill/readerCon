@@ -50,8 +50,8 @@ const fetchGetWithToken = (url, token, data) => {
         mode: 'cors',
         credentials: 'include'
     }
-
     url += '?' + querystring.stringify(data)
+    // url += querystring.stringify({ token: token })
 
     return fetch(url, {
         headers,
@@ -81,14 +81,14 @@ export const PUT_METHOD = 'PUT'
 export const DELETE_METHOD = 'DELETE'
 
 const fetchWithToken = (url, method, token, data) => {
-    if (method === 'GET') return fetchGetWithToken(url, token)
+    if (method === 'GET') return fetchGetWithToken(url, token, data)
     if (method === 'POST') return fetchPostWithToken(url, token, data)
 }
 
 export const fetchApiAction = (url, method, data, callbackAction, option) => {
     return (dispatch, getState) => {
         dispatch(request());
-        fetchWithToken(url, method, data)
+        fetchWithToken(url, method, getState().user.token, data)
             .then(statusCheck)
             .then(response => response.json())
             .then(json => {
