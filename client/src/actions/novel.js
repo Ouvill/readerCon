@@ -5,15 +5,7 @@ export const RECIVE_NOVEL = 'RECIVE_NOVEL'
 
 export const fetchNovel = (novelId) => {
     return (dispatch, getState) => {
-        dispatch(fetchData.request())
-        fetch('/api/v1/novels/' + novelId).then(response => response.json()).then(json => {
-            dispatch(reciveNovel(json));
-        }).catch(err => {
-            console.log(err.stack);
-            dispatch(message.setMessage('アクセスできませんでした'))
-        }).finally(() => {
-            dispatch(fetchData.recieve())
-        })
+        dispatch(fetchData.fetchApiAction('/api/v1/novels/' + novelId, fetchData.GET_METHOD, {}, reciveNovel));
     }
 }
 
