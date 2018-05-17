@@ -21,19 +21,22 @@ const requestNovelIdCheck = (req, res, next) => {
     next();
 }
 
+const tryLoadNovel = async (req, res, next) => {
+    const novelId = req.params.novelId;
+    novel = await dbNovel.infoWithContests(novelId);
+    next();
+}
+
 const existNovel = async (req, res, next) => {
     try {
-        const novelId = req.params.novelId;
-        novel = await dbNovel.infoWithContests(novelId);
         if (!novel) {
             res.status(404).json({
                 result: false,
                 message: 'no novel',
                 messageJa: '小説が存在しません'
             });
-            return
+            return false
         }
-        req.novel = novel
         next()
     } catch (err) {
         console.log(err)
@@ -60,6 +63,7 @@ const isNovelPublic = async (req, res, next) => {
 
 router.get('/:novelId',
     requestNovelIdCheck,
+    tryLoadNovel,
     existNovel,
     isNovelPublic,
     async function (req, res, next) {
@@ -84,6 +88,7 @@ router.get('/:novelId',
 
 router.get('/:novelId/chapters/:chapterNum',
     requestNovelIdCheck,
+    tryLoadNovel,
     existNovel,
     isNovelPublic,
     chapters.reqChapterIdCheck,
