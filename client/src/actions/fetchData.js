@@ -33,10 +33,10 @@ const statusCheck = (response) => {
     if (!response.ok) {
         return response.json().then((err) => {
             if (typeof (err.messageJa) !== 'undefined') {
-                throw new StatusCodeError(err.messageJa)
+                throw new StatusCodeError('HTTP Status Code:' + response.status + ':' + err.messageJa)
             }
             if (typeof (err.message) !== 'undefined') {
-                throw new StatusCodeError(err.message)
+                throw new StatusCodeError('HTTP Status Code : ' + response.status + '　' + err.message)
             }
         })
     } else {
